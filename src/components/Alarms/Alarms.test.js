@@ -17,25 +17,15 @@ var newAlarm = {
 	}		
 }
 
-
 describe('Alarm', function() {
 	it('should render without crashing', function() {
 		const div = document.createElement('div');
-		ReactDOM.render(<Alarm alarm={newAlarm}/>, div)
-	})
-	it('should have className alarm', function() {
-		var renderer = TestUtils.createRenderer();		
-    renderer.render(
-			<Alarm alarm={newAlarm}/>
-    )
- 
-    var alarm = renderer.getRenderOutput();		
-		expect(alarm.props.className).toEqual('alarm')
+		ReactDOM.render(<Alarm time={{hour: 10, minute: 30}} alarm={newAlarm}/>, div)
 	})
 	it('should display an alarm\'s title', function() {
 		var renderer = TestUtils.createRenderer();		
     renderer.render(
-			<Alarm alarm={newAlarm}/>
+			<Alarm time={{hour: 10, minute: 30}} alarm={newAlarm}/>
     )
  
     var alarm = renderer.getRenderOutput();		
@@ -44,7 +34,7 @@ describe('Alarm', function() {
 	it('should display an alarm\'s start time', function() {
 		var renderer = TestUtils.createRenderer();		
     renderer.render(
-			<Alarm alarm={newAlarm}/>
+			<Alarm time={{hour: 10, minute: 30}} alarm={newAlarm}/>
     )
  
     var alarm = renderer.getRenderOutput();		
@@ -53,11 +43,89 @@ describe('Alarm', function() {
 	it('should display an alarm\'s end time', function() {
 		var renderer = TestUtils.createRenderer();		
     renderer.render(
-			<Alarm alarm={newAlarm}/>
+			<Alarm time={{hour: 10, minute: 30}} alarm={newAlarm}/>
     )
  
     var alarm = renderer.getRenderOutput();		
 		expect(alarm.props.children[1].props.time.hour).toEqual(11)
+	})
+	it('should be sounding', function() {
+		var alarm = TestUtils.renderIntoDocument(
+			<Alarm time={{hour: 10, minute: 30}} alarm={newAlarm}/>
+		)		
+		expect(alarm.state.sounding).toEqual(true)
+	})
+	it('should not be sounding', function() {
+		var alarm = TestUtils.renderIntoDocument(
+			<Alarm time={{hour: 11, minute: 30}} alarm={newAlarm}/>
+		)		
+		expect(alarm.state.sounding).toEqual(false)
+	})
+	it('should be sounding within an hour', function() {
+		var alarm = TestUtils.renderIntoDocument(
+			<Alarm time={{hour: 10, minute: 30}} alarm={{
+				title: 'newAlarm',
+				start: {
+					hour: 10,
+					minute: 0
+				},
+				end: {
+					hour: 10,
+					minute: 45
+				}
+			}}/>
+		)		
+		expect(alarm.state.sounding).toEqual(true)
+	})
+	it('should be sounding overnight', function() {
+		var alarm = TestUtils.renderIntoDocument(
+			<Alarm time={{hour: 12, minute: 0}} alarm={{
+				title: 'newAlarm',
+				start: {
+					hour: 11,
+					minute: 0
+				},
+				end: {
+					hour: 1,
+					minute: 0
+				}
+			}}/>
+		)		
+		expect(alarm.state.sounding).toEqual(true)
+	})
+	it('should not be sounding overnight when the alarm is not between the start and end time', function() {
+		var alarm = TestUtils.renderIntoDocument(
+			<Alarm time={{hour: 1, minute: 30}} alarm={{
+				title: 'newAlarm',
+				start: {
+					hour: 11,
+					minute: 0
+				},
+				end: {
+					hour: 1,
+					minute: 0
+				}
+			}}/>
+		)		
+		expect(alarm.state.sounding).toEqual(false)
+	})
+	it('should have class sounding if the alarm is sounding', function() {
+		var renderer = TestUtils.createRenderer();		
+    renderer.render(
+			<Alarm time={{hour: 10, minute: 30}} alarm={newAlarm}/>
+    )
+ 
+    var alarm = renderer.getRenderOutput();		
+		expect(alarm.props.className).toEqual('sounding')
+	})
+	it('should have class silent if the alarm is not sounding', function() {
+		var renderer = TestUtils.createRenderer();		
+    renderer.render(
+			<Alarm time={{hour: 11, minute: 30}} alarm={newAlarm}/>
+    )
+ 
+    var alarm = renderer.getRenderOutput();		
+		expect(alarm.props.className).toEqual('silent')
 	})
 })
 
@@ -66,12 +134,12 @@ describe('Alarms', function() {
 
 	it('should render without crashing', function() {
 		const div = document.createElement('div')
-		ReactDOM.render(<Alarms alarms={alarms}/>, div)
+		ReactDOM.render(<Alarms time={{hour: 10, minute: 30}} alarms={alarms}/>, div)
 	})
 	it('should display a list of alarms', function() {
 		var renderer = TestUtils.createRenderer();		
     renderer.render(
-			<Alarms alarms={alarms}/>
+			<Alarms time={{hour: 10, minute: 30}} alarms={alarms}/>
     )
  
     var alarm = renderer.getRenderOutput();		
@@ -80,7 +148,7 @@ describe('Alarms', function() {
 	it('should pass an alarm to Alarm', function() {
 		var renderer = TestUtils.createRenderer();		
     renderer.render(
-			<Alarms alarms={alarms}/>
+			<Alarms time={{hour: 10, minute: 30}} alarms={alarms}/>
     )
  
     var alarm = renderer.getRenderOutput();		

@@ -13,15 +13,19 @@ var App = React.createClass({
 			})
 		}.bind(this), 2000)
 		return {
-			time: helpers.getEorzeanTime(new Date().getTime())
+			time: helpers.getEorzeanTime(new Date().getTime()),
+			alarms: []
 		}
+	},
+	addAlarm: function(alarm) {
+		this.state.alarms.push(alarm)
 	},
   render() {
     return (
 			<div>
 				<EorzeanClock time={this.state.time} />
-				<Alarms alarms={[]}/>
-				<CreateAlarm addAlarm={function(){}}/>
+				<Alarms time={this.state.time} alarms={this.state.alarms}/>
+				<CreateAlarm ref="createAlarm" addAlarm={this.addAlarm}/>
 			</div>
 		)
   }
