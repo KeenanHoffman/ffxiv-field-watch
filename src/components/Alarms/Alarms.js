@@ -1,4 +1,5 @@
 import React from 'react'
+import './Alarms.css';
 import Alarm from './Alarm'
 var Alarms = React.createClass({
 	render: function() {

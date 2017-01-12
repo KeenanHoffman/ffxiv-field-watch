@@ -53,13 +53,13 @@ describe('Alarm', function() {
 		var alarm = TestUtils.renderIntoDocument(
 			<Alarm time={{hour: 10, minute: 30}} alarm={newAlarm}/>
 		)		
-		expect(alarm.state.sounding).toEqual(true)
+		expect(alarm.sounding).toEqual(true)
 	})
 	it('should not be sounding', function() {
 		var alarm = TestUtils.renderIntoDocument(
 			<Alarm time={{hour: 11, minute: 30}} alarm={newAlarm}/>
 		)		
-		expect(alarm.state.sounding).toEqual(false)
+		expect(alarm.sounding).toEqual(false)
 	})
 	it('should be sounding within an hour', function() {
 		var alarm = TestUtils.renderIntoDocument(
@@ -75,7 +75,7 @@ describe('Alarm', function() {
 				}
 			}}/>
 		)		
-		expect(alarm.state.sounding).toEqual(true)
+		expect(alarm.sounding).toEqual(true)
 	})
 	it('should be sounding overnight', function() {
 		var alarm = TestUtils.renderIntoDocument(
@@ -91,7 +91,7 @@ describe('Alarm', function() {
 				}
 			}}/>
 		)		
-		expect(alarm.state.sounding).toEqual(true)
+		expect(alarm.sounding).toEqual(true)
 	})
 	it('should not be sounding overnight when the alarm is not between the start and end time', function() {
 		var alarm = TestUtils.renderIntoDocument(
@@ -107,7 +107,7 @@ describe('Alarm', function() {
 				}
 			}}/>
 		)		
-		expect(alarm.state.sounding).toEqual(false)
+		expect(alarm.sounding).toEqual(false)
 	})
 	it('should have class sounding if the alarm is sounding', function() {
 		var renderer = TestUtils.createRenderer();		
@@ -126,6 +126,14 @@ describe('Alarm', function() {
  
     var alarm = renderer.getRenderOutput();		
 		expect(alarm.props.className).toEqual('silent')
+	})
+	it('should be sounding then silent when it ends', function() {
+		const div = document.createElement('div');
+		var alarm = ReactDOM.render(<Alarm time={{hour: 11, minute: 0}} alarm={newAlarm}/>, div)
+		expect(alarm.sounding).toEqual(true)
+
+		ReactDOM.render(<Alarm time={{hour: 11, minute: 1}} alarm={newAlarm}/>, div)
+		expect(alarm.sounding).toEqual(false)
 	})
 })
 

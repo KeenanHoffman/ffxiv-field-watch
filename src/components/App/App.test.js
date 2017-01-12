@@ -18,6 +18,30 @@ describe('App', function() {
     var app = renderer.getRenderOutput()
 		expect(app.props.children[0].props.time.hour).not.toEqual(undefined)
 	})
+	it('should update the clock over time', function() {
+		var renderer = TestUtils.createRenderer()
+    renderer.render(
+			<App />
+    );
+ 
+    var app = renderer.getRenderOutput()
+		var time1 = app
+		function getTimeAfter2Sec() {
+			return new Promise(function(resolve) {
+				setTimeout(function() {
+					var renderer2 = TestUtils.createRenderer()
+    			renderer2.render(
+						<App />
+	    		)
+  	  		var app2 = renderer.getRenderOutput()
+					resolve(app2.props.children[0].props.time.minute)
+				}, 4500)
+			})
+		}
+		return getTimeAfter2Sec().then(function(time2) {
+			expect(time1.props.children[0].props.time.minute).not.toEqual(time2)
+		})
+	})
 	it('should display alarms', function() {
 		var renderer = TestUtils.createRenderer()
     renderer.render(
@@ -26,6 +50,7 @@ describe('App', function() {
  
     var app = renderer.getRenderOutput();		
 		expect(app.props.children[1].props.alarms).not.toEqual(undefined)
+		expect(app.props.children[1].props.time).not.toEqual(undefined)		
 	})
 	it('should display alarm creation', function() {
 		var renderer = TestUtils.createRenderer()
