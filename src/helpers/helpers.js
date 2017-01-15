@@ -9,6 +9,11 @@ function getEorzeanTime(currentTime) {
 	} 
 }
 
+function getEorzeanEpoch(currentTime) {
+	return currentTime * 20.571428571428573;
+}
+
 module.exports = {
-	getEorzeanTime: getEorzeanTime
+	getEorzeanTime: getEorzeanTime,
+	getEorzeanEpoch: getEorzeanEpoch
 }
