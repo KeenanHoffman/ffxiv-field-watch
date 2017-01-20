@@ -1,7 +1,23 @@
 import React from 'react'
 import EorzeanClock from '../EorzeanClock/EorzeanClock'
 import Weatherfinder from '../../helpers/weather'
-import helpers from '../../helpers/helpers'
+
+function isSameWeatherPattern(location, alarm, epoch) {
+	if(alarm.currentWeather !== '') {
+		var currentWeather = Weatherfinder.getWeather(epoch, location)
+		var previousWeatherTime = epoch - (8 * 175 * 1000)
+		var previousWeather = Weatherfinder.getWeather(previousWeatherTime, location)
+		if(alarm.currentWeather !== currentWeather) return false
+		if(alarm.previousWeather !== '') {
+			if(alarm.previousWeather !== previousWeather) return false
+			if(alarm.previousWeather === previousWeather) return true
+		} else {
+			return true
+		}
+	} else {
+		return true
+	}
+}
 
 var Alarm = React.createClass({
 	isAlarmSounding: function() {
@@ -13,15 +29,7 @@ var Alarm = React.createClass({
 		var endInMinutes = (end.hour * 60) + end.minute
 		var dayInMinutes = (23 * 60) + 59
 		var sounding
-		if(this.props.alarm.currentWeather !== '') {
-			var currentWeather = Weatherfinder.getWeather(this.props.epoch, this.props.alarm.location)
-			var previousWeatherTime = this.props.epoch - (8 * 175 * 1000)
-			var previousWeather = Weatherfinder.getWeather(previousWeatherTime, this.props.alarm.location)
-			if(this.props.alarm.previousWeather !== '') {
-				if(this.props.alarm.previousWeather !== previousWeather) return false
-			}
-			if(this.props.alarm.currentWeather !== currentWeather) return false
-		}
+		if(!isSameWeatherPattern(this.props.alarm.location, this.props.alarm, this.props.epoch)) return false
 		if(timeInMinutes === startInMinutes) this.props.playAlarm()
 		if(startInMinutes > endInMinutes) {
 			sounding = (timeInMinutes >= startInMinutes && timeInMinutes <= dayInMinutes) || (timeInMinutes <= endInMinutes  && timeInMinutes >= 0)
