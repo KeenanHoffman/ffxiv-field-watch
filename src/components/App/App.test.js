@@ -16,7 +16,7 @@ var newAlarm = {
 	},
 	notes: 'notes',
 	currentWeather: ''
-}	
+}
 
 var storedAlarms
 
@@ -39,7 +39,7 @@ describe('App', function() {
     renderer.render(
 			<App datastore={mockDatastore} />
     );
- 
+
     var app = renderer.getRenderOutput()
 		expect(app.props.children[0].props.time.hour).not.toEqual(undefined)
 	})
@@ -48,7 +48,7 @@ describe('App', function() {
     renderer.render(
 			<App datastore={mockDatastore} />
     );
- 
+
     var app = renderer.getRenderOutput()
 		var time1 = app
 		function getTimeAfter2Sec() {
@@ -72,10 +72,10 @@ describe('App', function() {
     renderer.render(
 			<App datastore={mockDatastore} epoch={10}/>
     );
- 
-    var app = renderer.getRenderOutput();		
+
+    var app = renderer.getRenderOutput();
 		expect(app.props.children[1].props.alarms).not.toEqual(undefined)
-		expect(app.props.children[1].props.time).not.toEqual(undefined)		
+		expect(app.props.children[1].props.time).not.toEqual(undefined)
 		expect(app.props.children[1].props.epoch).not.toEqual(undefined)
 	})
 	it('should display alarm creation', function() {
@@ -83,8 +83,8 @@ describe('App', function() {
     renderer.render(
 			<App datastore={mockDatastore} />
     )
- 
-    var app = renderer.getRenderOutput();		
+
+    var app = renderer.getRenderOutput();
 		expect(app.props.children[2].props.addAlarm).not.toEqual(undefined)
 	})
 	it('should add an alarm with CreateAlarm', function() {
@@ -105,7 +105,7 @@ describe('App', function() {
 		ReactTestUtils.Simulate.submit(createAlarm.refs.title)
 		expect(storedAlarms[0].title).toEqual('newAlarm')
 	})
-	it('should load saved alarms', function() {		
+	it('should load saved alarms', function() {
 		var app = TestUtils.renderIntoDocument(<App datastore={mockDatastore} />)
 		expect(app.state.alarms.length).toEqual(1)
 	})

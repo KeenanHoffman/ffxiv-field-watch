@@ -4,21 +4,8 @@ import TestUtils from "react-addons-test-utils";
 import shallowTestUtils from "react-shallow-testutils";
 import Alarm from './Alarm'
 import Alarms from './Alarms'
-import Weather from '../../helpers/weather'
 
-var newAlarm = {
-	title: 'newAlarm',
-	start: {
-		hour: 10,
-		minute: 0
-	},
-	end: {
-		hour: 11,
-		minute: 0
-	},
-	notes: 'notes',
-	currentWeather: ''
-}
+var newAlarm
 var alarmWithWeather = {
 	title: 'newAlarm',
 	start: {
@@ -36,54 +23,108 @@ var alarmWithWeather = {
 }
 
 describe('Alarm', function() {
-	function renderAlarm(time, alarm, epoch) {
+	function renderAlarm(time, alarm, epoch, playAlarm) {
     renderer.render(
-			<Alarm time={time} alarm={alarm} epoch={epoch} />
+			<Alarm time={time} alarm={alarm} epoch={epoch} playAlarm={playAlarm} />
     )
-    return renderer.getRenderOutput();		
+    return renderer.getRenderOutput();
 	}
 	var tenOclock = {hour: 10, minute: 0}
 	var tenThirtyAM = {hour: 10, minute: 30}
 	var renderer
 	beforeEach(function() {
 		renderer = TestUtils.createRenderer();
+    newAlarm = {
+      title: 'newAlarm',
+      start: {
+        hour: 10,
+        minute: 0
+      },
+      end: {
+        hour: 11,
+        minute: 0
+      },
+      notes: 'notes',
+      currentWeather: '',
+      shouldPlayAlarm: true
+    }
 	})
 	it('should render without crashing', function() {
 		const div = document.createElement('div');
-		ReactDOM.render(<Alarm time={tenThirtyAM} alarm={newAlarm}/>, div)
+		ReactDOM.render(<Alarm time={tenThirtyAM} alarm={newAlarm} playAlarm={jest.fn()}/>, div)
 	})
-	
+
 	describe('display', function() {
 		it('should display an alarm\'s title', function() {
-			var alarm = renderAlarm(tenThirtyAM, newAlarm)
+			var alarm = renderAlarm(tenThirtyAM, newAlarm, undefined, jest.fn())
 			expect(alarm.props.children[2].props.children).toEqual('newAlarm')
 		})
 		it('should display an alarm\'s start time', function() {
-			var alarm = renderAlarm(tenThirtyAM, newAlarm)
+			var alarm = renderAlarm(tenThirtyAM, newAlarm, undefined, jest.fn())
 			expect(alarm.props.children[0].props.time.hour).toEqual(10)
 		})
 		it('should display an alarms notes when it is sounding', function() {
-			var alarm = renderAlarm(tenThirtyAM, newAlarm)
-			expect(alarm.props.children[5].props.children).toEqual('notes')
+			var alarm = renderAlarm(tenThirtyAM, newAlarm, undefined, jest.fn())
+			expect(alarm.props.children[6].props.children).toEqual('notes')
 		})
-		it('should display an alarm\'s current weather', function() {
-			var alarm = renderAlarm(tenThirtyAM, alarmWithWeather)
-			expect(alarm.props.children[4].props.children).toEqual('Fair Skies')
+		it('should display an alarm\'s current weather when an alarm is sounding', function() {
+			var alarm = renderAlarm(tenThirtyAM, {
+					title: 'newAlarm',
+					start: {
+						hour: 10,
+						minute: 0
+					},
+					end: {
+						hour: 11,
+						minute: 0
+					},
+					notes: 'notes',
+					currentWeather: 'Wind',
+					previousWeather: 'Fair Skies',
+					location: 'Middle La Noscea'
+				}, 1484462434157, jest.fn())
+			expect(alarm.props.children[4].props.children).toEqual('Wind')
+		})
+		it('should not display an alarm\'s current weather when an alarm is silent', function() {
+			var alarm = renderAlarm({hour: 11, minute: 30}, alarmWithWeather, undefined, jest.fn())
+			expect(alarm.props.children[4].props.children).toEqual('')
+		})
+		it('should display an alarm\'s previous weather when an alarm is sounding', function() {
+			var alarm = renderAlarm(tenThirtyAM, {
+					title: 'newAlarm',
+					start: {
+						hour: 10,
+						minute: 0
+					},
+					end: {
+						hour: 11,
+						minute: 0
+					},
+					notes: 'notes',
+					currentWeather: 'Wind',
+					previousWeather: 'Fair Skies',
+					location: 'Middle La Noscea'
+				}, 1484462434157, jest.fn())
+			expect(alarm.props.children[5].props.children).toEqual('Fair Skies')
+		})
+		it('should not display an alarm\'s previous weather when an alarm is silent', function() {
+			var alarm = renderAlarm({hour: 11, minute: 30}, alarmWithWeather, undefined, jest.fn())
+			expect(alarm.props.children[5].props.children).toEqual('')
 		})
 		it('should display an alarm\'s Location', function() {
-			var alarm = renderAlarm(tenThirtyAM, alarmWithWeather)
+			var alarm = renderAlarm(tenThirtyAM, alarmWithWeather, undefined, jest.fn())
 			expect(alarm.props.children[3].props.children).toEqual('Limsa Lominsa')
 		})
 		it('should not display an alarms notes when it is silent', function() {
-			var alarm = renderAlarm({hour: 11, minute: 30}, newAlarm)
+			var alarm = renderAlarm({hour: 11, minute: 30}, newAlarm, undefined, jest.fn())
 			expect(alarm.props.children[5].props.children).toEqual('')
-		})	
+		})
 		it('should display an alarm\'s end time', function() {
-			var alarm = renderAlarm(tenThirtyAM, newAlarm)
+			var alarm = renderAlarm(tenThirtyAM, newAlarm, undefined, jest.fn())
 			expect(alarm.props.children[1].props.time.hour).toEqual(11)
 		})
 	})
-	
+
 
 	describe('sounding', function() {
 		function renderAlarmIntoDocument(time, alarm, playAlarm, epoch) {
@@ -92,11 +133,28 @@ describe('Alarm', function() {
 			)
 		}
 		it('should play a sound when an alarm starts', function() {
-			var alarm = renderAlarmIntoDocument(tenOclock, newAlarm, jest.fn()) 
+			var alarm = renderAlarmIntoDocument(tenOclock, newAlarm, jest.fn())
 			expect(alarm.props.playAlarm).toBeCalled()
-		})	
+		})
+		it('should play a sound when an alarm is sounding when loaded', function() {
+			var alarm = renderAlarmIntoDocument(tenThirtyAM, newAlarm, jest.fn())
+			expect(alarm.props.playAlarm).toBeCalled()
+		})
+		it('should not play a sound when an alarm has already sounded', function() {
+      const div = document.createElement('div');
+      var alarm = ReactDOM.render(<Alarm time={tenThirtyAM} alarm={newAlarm} playAlarm={jest.fn()}/>, div)
+
+      ReactDOM.render(<Alarm time={{hour: 10, minute: 31}} alarm={newAlarm} playAlarm={jest.fn()}/>, div)
+      expect(alarm.props.playAlarm).not.toBeCalled()
+		})
+		it('should return alarm.shouldPlayAlarm to true after after an alarm ends', function() {
+      const div = document.createElement('div');
+      newAlarm.shouldPlayAlarm = false
+      ReactDOM.render(<Alarm time={{hour: 11, minute: 1}} alarm={newAlarm} playAlarm={jest.fn()}/>, div)
+      expect(newAlarm.shouldPlayAlarm).toEqual(true)
+		})
 		it('should be sounding', function() {
-			var alarm = renderAlarmIntoDocument(tenThirtyAM, newAlarm, jest.fn())		
+			var alarm = renderAlarmIntoDocument(tenThirtyAM, newAlarm, jest.fn())
 			expect(alarm.sounding).toEqual(true)
 		})
 		it('should not be sounding', function() {
@@ -115,7 +173,7 @@ describe('Alarm', function() {
 						minute: 45
 					},
 					currentWeather: ''
-				}, jest.fn())		
+				}, jest.fn())
 			expect(alarm.sounding).toEqual(true)
 		})
 		it('should be sounding overnight when the current time is in the am', function() {
@@ -145,7 +203,7 @@ describe('Alarm', function() {
 						minute: 0
 					},
 					currentWeather: ''
-				}, jest.fn())		
+				}, jest.fn())
 			expect(alarm.sounding).toEqual(true)
 		})
 		it('should not be sounding overnight when the alarm is not between the start and end time and the current time is in the am', function() {
@@ -160,7 +218,7 @@ describe('Alarm', function() {
 						minute: 0
 					},
 					currentWeather: ''
-				}, jest.fn())		
+				}, jest.fn())
 			expect(alarm.sounding).toEqual(false)
 		})
 		it('should not be sounding overnight when the alarm is not between the start and end time and the current time is in the pm', function() {
@@ -179,16 +237,16 @@ describe('Alarm', function() {
 			expect(alarm.sounding).toEqual(false)
 		})
 		it('should have class sounding if the alarm is sounding', function() {
-			var alarm = renderAlarm(tenThirtyAM, newAlarm)
+			var alarm = renderAlarm(tenThirtyAM, newAlarm, undefined, jest.fn())
 			expect(alarm.props.className).toEqual('sounding')
-		})		
+		})
 		it('should have class silent if the alarm is not sounding', function() {
-			var alarm = renderAlarm({hour: 11, minute: 30}, newAlarm)
+			var alarm = renderAlarm({hour: 11, minute: 30}, newAlarm, undefined, jest.fn())
 			expect(alarm.props.className).toEqual('silent')
-		})		
+		})
 		it('should be sounding then silent when it ends', function() {
 			const div = document.createElement('div');
-			var alarm = ReactDOM.render(<Alarm time={{hour: 11, minute: 0}} alarm={newAlarm}/>, div)
+			var alarm = ReactDOM.render(<Alarm time={{hour: 11, minute: 0}} alarm={newAlarm} playAlarm={jest.fn()}/>, div)
 			expect(alarm.sounding).toEqual(true)
 
 			ReactDOM.render(<Alarm time={{hour: 11, minute: 1}} alarm={newAlarm}/>, div)
@@ -234,24 +292,6 @@ describe('Alarm', function() {
 				}, jest.fn(), 1484462434157)
 			expect(alarm.sounding).toEqual(true)
 		})
-		it('should be sounding when the current and previous weathers are correct 123', function() {
-			var alarm = renderAlarmIntoDocument(tenThirtyAM, {
-					title: 'newAlarm',
-					start: {
-						hour: 10,
-						minute: 0
-					},
-					end: {
-						hour: 11,
-						minute: 0
-					},
-					notes: 'notes',
-					currentWeather: 'Fair Skies',
-					previousWeather: 'Fog',
-					location: 'Middle La Noscea'
-				}, jest.fn(), 1484494782204)
-			expect(alarm.sounding).toEqual(true)
-		})
 		it('should not be sounding when the previous weather is incorrect and the current weather is correct', function() {
 			var alarm = renderAlarmIntoDocument(tenThirtyAM, {
 					title: 'newAlarm',
@@ -270,7 +310,7 @@ describe('Alarm', function() {
 				}, jest.fn(), 1484462434157)
 			expect(alarm.sounding).toEqual(false)
 		})
-		it('should be sonding at the beginning of a weather cycle', function() {
+		it('should be sounding at the end of a weather cycle', function() {
 			var alarm = TestUtils.renderIntoDocument(
 				<Alarm time={{hour: 7, minute: 59}} epoch={1484505399001} alarm={{
 					title: 'newAlarm',
@@ -286,27 +326,27 @@ describe('Alarm', function() {
 					currentWeather: 'Wind',
 					previousWeather: 'Clear Skies',
 					location: 'Middle La Noscea'
-				}}/>
+				}} playAlarm={jest.fn()}/>
 			)
 			expect(alarm.sounding).toEqual(true)
 		})
 		it('should be sonding at the beginning of a weather cycle', function() {
 			var alarm = TestUtils.renderIntoDocument(
-				<Alarm time={{hour: 8, minute: 0}} epoch={1484506804370} alarm={{
+				<Alarm time={{hour: 0, minute: 0}} epoch={1484506802370} alarm={{
 					title: 'newAlarm',
 					start: {
-						hour: 7,
+						hour: 23,
 						minute: 0
 					},
 					end: {
-						hour: 9,
+						hour: 1,
 						minute: 0
 					},
 					notes: 'notes',
 					currentWeather: 'Fog',
 					previousWeather: 'Wind',
 					location: 'Middle La Noscea'
-				}}/>
+				}} playAlarm={jest.fn()}/>
 			)
 			expect(alarm.sounding).toEqual(true)
 		})
@@ -314,6 +354,20 @@ describe('Alarm', function() {
 })
 
 describe('Alarms', function() {
+  var newAlarm = {
+      title: 'newAlarm',
+      start: {
+        hour: 10,
+        minute: 0
+      },
+      end: {
+        hour: 11,
+        minute: 0
+      },
+      notes: 'notes',
+      currentWeather: '',
+      shouldPlayAlarm: true
+    }
 	var alarms = [newAlarm, newAlarm]
 
 	it('should render without crashing', function() {
@@ -321,48 +375,48 @@ describe('Alarms', function() {
 		ReactDOM.render(<Alarms time={{hour: 10, minute: 30}} alarms={alarms}/>, div)
 	})
 	it('should display a list of alarms', function() {
-		var renderer = TestUtils.createRenderer();		
+		var renderer = TestUtils.createRenderer();
     renderer.render(
 			<Alarms time={{hour: 10, minute: 30}} alarms={alarms}/>
     )
- 
-    var alarm = renderer.getRenderOutput();		
+
+    var alarm = renderer.getRenderOutput();
 		expect(alarm.props.children.length).toEqual(2)
 	})
 	it('should pass an alarm to Alarm', function() {
-		var renderer = TestUtils.createRenderer();		
+		var renderer = TestUtils.createRenderer();
     renderer.render(
 			<Alarms time={{hour: 10, minute: 30}} alarms={alarms}/>
     )
- 
-    var alarm = renderer.getRenderOutput();		
+
+    var alarm = renderer.getRenderOutput();
 		expect(alarm.props.children[0].props.alarm.title).toEqual('newAlarm')
 	})
 	it('should pass time to Alarm', function() {
-		var renderer = TestUtils.createRenderer();		
+		var renderer = TestUtils.createRenderer();
     renderer.render(
 			<Alarms time={{hour: 10, minute: 30}} alarms={alarms}/>
     )
- 
-    var alarm = renderer.getRenderOutput();		
+
+    var alarm = renderer.getRenderOutput();
 		expect(alarm.props.children[0].props.time.hour).toEqual(10)
 	})
 	it('should pass time to Alarm', function() {
-		var renderer = TestUtils.createRenderer();		
+		var renderer = TestUtils.createRenderer();
     renderer.render(
 			<Alarms time={{hour: 10, minute: 30}} epoch={10} alarms={alarms}/>
     )
- 
-    var alarm = renderer.getRenderOutput();		
+
+    var alarm = renderer.getRenderOutput();
 		expect(alarm.props.children[0].props.epoch).toEqual(10)
 	})
 	it('should pass playAlarm function to Alarm', function() {
-		var renderer = TestUtils.createRenderer();		
+		var renderer = TestUtils.createRenderer();
     renderer.render(
 			<Alarms time={{hour: 10, minute: 30}} alarms={alarms} />
     )
- 
-    var alarm = renderer.getRenderOutput();		
+
+    var alarm = renderer.getRenderOutput();
 		expect(alarm.props.children[0].props.playAlarm).not.toEqual(undefined)
-	})	
+	})
 })
