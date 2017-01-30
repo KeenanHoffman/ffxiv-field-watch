@@ -4,7 +4,6 @@ import TestUtils from "react-addons-test-utils";
 import shallowTestUtils from "react-shallow-testutils";
 import Alarm from './Alarm'
 import Alarms from './Alarms'
-import Helpers from '../../helpers/helpers'
 
 var newAlarm
 var alarmWithWeather = {
@@ -362,21 +361,16 @@ describe('Alarm', function() {
 			expect(alarm.sounding).toEqual(true)
 		})
 		it('should be sounding at the beginning of an alarm\'s travel time', function() {
-      console.log('================')
       newAlarm.travelTime = 15
 			var alarm = renderAlarmIntoDocument({hour: 9, minute: 45}, newAlarm, jest.fn())
-      console.log('================')
 			expect(alarm.sounding).toEqual(true)
 		})
 		it('should be sounding near an alarm\'s end', function() {
-      console.log('================')
       newAlarm.travelTime = 15
 			var alarm = renderAlarmIntoDocument({hour: 10, minute: 46}, newAlarm, jest.fn())
-      console.log('================')
 			expect(alarm.sounding).toEqual(true)
 		})
 		it('should be sounding when desired weather is after travel time', function() {
-      console.log('================')
 			var alarm = renderAlarmIntoDocument({hour: 15, minute: 45}, {
 					title: 'newAlarm',
 					start: {
@@ -393,11 +387,9 @@ describe('Alarm', function() {
 					location: 'The Churning Mists',
           travelTime: 15
 				}, jest.fn(), 1485714959000)
-      console.log('================')
 			expect(alarm.sounding).toEqual(true)
 		})
 		it('should not be sounding when desired weather is after travel time, but is outside of alarm time', function() {
-      console.log('================')
 			var alarm = renderAlarmIntoDocument({hour: 15, minute: 45}, {
 					title: 'newAlarm',
 					start: {
@@ -414,7 +406,6 @@ describe('Alarm', function() {
 					location: 'The Churning Mists',
           travelTime: 15
 				}, jest.fn(), 1485714959000)
-      console.log('================')
 			expect(alarm.sounding).toEqual(false)
 		})
 	})
