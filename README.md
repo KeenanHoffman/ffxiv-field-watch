@@ -1,1 +1,1 @@
-* FFXIV Alarms
+# FFXIV Alarms

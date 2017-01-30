@@ -4,6 +4,7 @@ import TestUtils from "react-addons-test-utils";
 import shallowTestUtils from "react-shallow-testutils";
 import Alarm from './Alarm'
 import Alarms from './Alarms'
+import Helpers from '../../helpers/helpers'
 
 var newAlarm
 var alarmWithWeather = {
@@ -19,7 +20,8 @@ var alarmWithWeather = {
 	notes: 'notes',
 	currentWeather: 'Fair Skies',
 	previousWeather: '',
-	location: 'Limsa Lominsa'
+	location: 'Limsa Lominsa',
+  travelTime: 0
 }
 
 describe('Alarm', function() {
@@ -46,7 +48,8 @@ describe('Alarm', function() {
       },
       notes: 'notes',
       currentWeather: '',
-      shouldPlayAlarm: true
+      shouldPlayAlarm: true,
+      travelTime: 0
     }
 	})
 	it('should render without crashing', function() {
@@ -81,7 +84,8 @@ describe('Alarm', function() {
 					notes: 'notes',
 					currentWeather: 'Wind',
 					previousWeather: 'Fair Skies',
-					location: 'Middle La Noscea'
+					location: 'Middle La Noscea',
+          travelTime: 0
 				}, 1484462434157, jest.fn())
 			expect(alarm.props.children[4].props.children).toEqual('Wind')
 		})
@@ -103,7 +107,8 @@ describe('Alarm', function() {
 					notes: 'notes',
 					currentWeather: 'Wind',
 					previousWeather: 'Fair Skies',
-					location: 'Middle La Noscea'
+					location: 'Middle La Noscea',
+          travelTime: 0
 				}, 1484462434157, jest.fn())
 			expect(alarm.props.children[5].props.children).toEqual('Fair Skies')
 		})
@@ -147,7 +152,7 @@ describe('Alarm', function() {
       ReactDOM.render(<Alarm time={{hour: 10, minute: 31}} alarm={newAlarm} playAlarm={jest.fn()}/>, div)
       expect(alarm.props.playAlarm).not.toBeCalled()
 		})
-		it('should return alarm.shouldPlayAlarm to true after after an alarm ends', function() {
+		it('should return alarm.shouldPlayAlarm to true after an alarm ends', function() {
       const div = document.createElement('div');
       newAlarm.shouldPlayAlarm = false
       ReactDOM.render(<Alarm time={{hour: 11, minute: 1}} alarm={newAlarm} playAlarm={jest.fn()}/>, div)
@@ -172,7 +177,8 @@ describe('Alarm', function() {
 						hour: 10,
 						minute: 45
 					},
-					currentWeather: ''
+					currentWeather: '',
+          travelTime: 0
 				}, jest.fn())
 			expect(alarm.sounding).toEqual(true)
 		})
@@ -187,7 +193,8 @@ describe('Alarm', function() {
 						hour: 2,
 						minute: 0
 					},
-					currentWeather: ''
+					currentWeather: '',
+          travelTime: 0
 				}, jest.fn())
 			expect(alarm.sounding).toEqual(true)
 		})
@@ -202,7 +209,8 @@ describe('Alarm', function() {
 						hour: 1,
 						minute: 0
 					},
-					currentWeather: ''
+					currentWeather: '',
+          travelTime: 0
 				}, jest.fn())
 			expect(alarm.sounding).toEqual(true)
 		})
@@ -288,7 +296,8 @@ describe('Alarm', function() {
 					notes: 'notes',
 					currentWeather: 'Wind',
 					previousWeather: 'Fair Skies',
-					location: 'Middle La Noscea'
+					location: 'Middle La Noscea',
+          travelTime: 0
 				}, jest.fn(), 1484462434157)
 			expect(alarm.sounding).toEqual(true)
 		})
@@ -325,7 +334,8 @@ describe('Alarm', function() {
 					notes: 'notes',
 					currentWeather: 'Wind',
 					previousWeather: 'Clear Skies',
-					location: 'Middle La Noscea'
+					location: 'Middle La Noscea',
+          travelTime: 0
 				}} playAlarm={jest.fn()}/>
 			)
 			expect(alarm.sounding).toEqual(true)
@@ -345,10 +355,67 @@ describe('Alarm', function() {
 					notes: 'notes',
 					currentWeather: 'Fog',
 					previousWeather: 'Wind',
-					location: 'Middle La Noscea'
+					location: 'Middle La Noscea',
+          travelTime: 0
 				}} playAlarm={jest.fn()}/>
 			)
 			expect(alarm.sounding).toEqual(true)
+		})
+		it('should be sounding at the beginning of an alarm\'s travel time', function() {
+      console.log('================')
+      newAlarm.travelTime = 15
+			var alarm = renderAlarmIntoDocument({hour: 9, minute: 45}, newAlarm, jest.fn())
+      console.log('================')
+			expect(alarm.sounding).toEqual(true)
+		})
+		it('should be sounding near an alarm\'s end', function() {
+      console.log('================')
+      newAlarm.travelTime = 15
+			var alarm = renderAlarmIntoDocument({hour: 10, minute: 46}, newAlarm, jest.fn())
+      console.log('================')
+			expect(alarm.sounding).toEqual(true)
+		})
+		it('should be sounding when desired weather is after travel time', function() {
+      console.log('================')
+			var alarm = renderAlarmIntoDocument({hour: 15, minute: 45}, {
+					title: 'newAlarm',
+					start: {
+						hour: 15,
+						minute: 0
+					},
+					end: {
+						hour: 17,
+						minute: 0
+					},
+					notes: 'notes',
+					currentWeather: 'Clear Skies',
+					previousWeather: 'Umbral Static',
+					location: 'The Churning Mists',
+          travelTime: 15
+				}, jest.fn(), 1485714959000)
+      console.log('================')
+			expect(alarm.sounding).toEqual(true)
+		})
+		it('should not be sounding when desired weather is after travel time, but is outside of alarm time', function() {
+      console.log('================')
+			var alarm = renderAlarmIntoDocument({hour: 15, minute: 45}, {
+					title: 'newAlarm',
+					start: {
+						hour: 15,
+						minute: 0
+					},
+					end: {
+						hour: 15,
+						minute: 46
+					},
+					notes: 'notes',
+					currentWeather: 'Clear Skies',
+					previousWeather: 'Umbral Static',
+					location: 'The Churning Mists',
+          travelTime: 15
+				}, jest.fn(), 1485714959000)
+      console.log('================')
+			expect(alarm.sounding).toEqual(false)
 		})
 	})
 })
