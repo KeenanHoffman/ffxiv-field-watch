@@ -34,10 +34,8 @@ function convertTimeToMinutes(time) {
 var Alarm = React.createClass({
 	isAlarmSounding: function() {
 
-
-
     var weatherIsCorrect = isSameWeatherPattern(this.props.alarm, this.props.epoch)
-    var weatherIsCorrectWithTravelTime = isSameWeatherPattern(this.props.alarm, this.props.epoch + ((8 * 175 * 1000) * (this.props.alarm.travelTime/ 60)))
+    var weatherIsCorrectWithTravelTime = isSameWeatherPattern(this.props.alarm, this.props.epoch + ((8 * 175 * 1000) * (this.props.alarm.travelTime / 60)))
 
     var timeInMinutes = convertTimeToMinutes(this.props.time)
     var startInMinutes = convertTimeToMinutes(this.props.alarm.start)
