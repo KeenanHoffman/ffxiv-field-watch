@@ -18,7 +18,7 @@ describe('CreateAlarm', function() {
 		createAlarm.refs.title.value = 'newAlarm'
 		createAlarm.refs.start.value = '10:10'
 		createAlarm.refs.end.value = '20:10'
-		ReactTestUtils.Simulate.submit(createAlarm.refs.title)
+		ReactTestUtils.Simulate.submit(createAlarm.refs.submit)
 		expect(alarms.length).toEqual(1)
 	})
 	it('should add a title to a new alarm', function() {
@@ -30,7 +30,7 @@ describe('CreateAlarm', function() {
 		createAlarm.refs.title.value = 'newAlarm'
 		createAlarm.refs.start.value = '10:10'
 		createAlarm.refs.end.value = '20:10'
-		ReactTestUtils.Simulate.submit(createAlarm.refs.title)
+		ReactTestUtils.Simulate.submit(createAlarm.refs.submit)
 		expect(alarms[0].title).toEqual("newAlarm")
 	})
 	it('should add a start time to a new alarm', function() {
@@ -42,7 +42,7 @@ describe('CreateAlarm', function() {
 		createAlarm.refs.title.value = 'newAlarm'
 		createAlarm.refs.start.value = '10:10'
 		createAlarm.refs.end.value = '20:10'
-		ReactTestUtils.Simulate.submit(createAlarm.refs.title)
+		ReactTestUtils.Simulate.submit(createAlarm.refs.submit)
 		expect(alarms[0].start).toEqual({
 			hour: 10,
 			minute: 10
@@ -57,7 +57,7 @@ describe('CreateAlarm', function() {
 		createAlarm.refs.title.value = 'newAlarm'
 		createAlarm.refs.start.value = '10:10'
 		createAlarm.refs.end.value = '20:10'
-		ReactTestUtils.Simulate.submit(createAlarm.refs.title)
+		ReactTestUtils.Simulate.submit(createAlarm.refs.submit)
 		expect(alarms[0].end).toEqual({
 			hour: 20,
 			minute: 10
@@ -73,7 +73,7 @@ describe('CreateAlarm', function() {
 		createAlarm.refs.start.value = '10:10'
 		createAlarm.refs.end.value = '20:10'
 		createAlarm.refs.location.value = 'Limsa Lominsa'
-		ReactTestUtils.Simulate.submit(createAlarm.refs.title)
+		ReactTestUtils.Simulate.submit(createAlarm.refs.submit)
 		expect(alarms[0].location).toEqual('Limsa Lominsa')
 	})
 	it('should not add a location to an alarm', function() {
@@ -85,7 +85,7 @@ describe('CreateAlarm', function() {
 		createAlarm.refs.title.value = 'newAlarm'
 		createAlarm.refs.start.value = '10:10'
 		createAlarm.refs.end.value = '20:10'
-		ReactTestUtils.Simulate.submit(createAlarm.refs.title)
+		ReactTestUtils.Simulate.submit(createAlarm.refs.submit)
 		expect(alarms[0].location).toEqual('')
 	})
 	it('should add the desired current weather to an alarm', function() {
@@ -102,7 +102,7 @@ describe('CreateAlarm', function() {
 		ReactTestUtils.Simulate.change(location)
 		createAlarm.refs.end.value = '20:10'
 		createAlarm.refs.currentWeather.value = 'Clouds'
-		ReactTestUtils.Simulate.submit(createAlarm.refs.title)
+		ReactTestUtils.Simulate.submit(createAlarm.refs.submit)
 		expect(alarms[0].currentWeather).toEqual('Clouds')
 	})
 	it('should display all possible weather for a selected location', function() {
@@ -126,7 +126,7 @@ describe('CreateAlarm', function() {
 		createAlarm.refs.title.value = 'newAlarm'
 		createAlarm.refs.start.value = '10:10'
 		createAlarm.refs.end.value = '20:10'
-		ReactTestUtils.Simulate.submit(createAlarm.refs.title)
+		ReactTestUtils.Simulate.submit(createAlarm.refs.submit)
 		expect(alarms[0].currentWeather).toEqual('')
 	})
 	it('should add the desired previous weather to an alarm', function() {
@@ -143,10 +143,10 @@ describe('CreateAlarm', function() {
 		ReactTestUtils.Simulate.change(location)
 		createAlarm.refs.end.value = '20:10'
 		createAlarm.refs.previousWeather.value = 'Clouds'
-		ReactTestUtils.Simulate.submit(createAlarm.refs.title)
+		ReactTestUtils.Simulate.submit(createAlarm.refs.submit)
 		expect(alarms[0].previousWeather).toEqual('Clouds')
 	})
-	it('should not add the previous current weather to an alarm', function() {
+	it('should not add the previous weather to an alarm', function() {
 		var alarms = []
 		function mockAddAlarm(alarm) {
 			alarms.push(alarm)
@@ -155,10 +155,10 @@ describe('CreateAlarm', function() {
 		createAlarm.refs.title.value = 'newAlarm'
 		createAlarm.refs.start.value = '10:10'
 		createAlarm.refs.end.value = '20:10'
-		ReactTestUtils.Simulate.submit(createAlarm.refs.title)
+		ReactTestUtils.Simulate.submit(createAlarm.refs.submit)
 		expect(alarms[0].previousWeather).toEqual('')
 	})
-	it('should list all loctions in a dropdown', function() {
+	it('should list all locations in a dropdown', function() {
 		var renderer = TestUtils.createRenderer()
 		function mockAddAlarm(alarm) {
 			alarms.push(alarm)
@@ -168,7 +168,7 @@ describe('CreateAlarm', function() {
     )
 
     var createAlarm = renderer.getRenderOutput();
-		expect(createAlarm.props.children.props.children[3].props.children[1].length).toEqual(31)
+		expect(createAlarm.props.children.props.children[4].props.children[1].length).toEqual(31)
 	})
 	it('should add an alarm with notes', function() {
 		var alarms = []
@@ -180,8 +180,33 @@ describe('CreateAlarm', function() {
 		createAlarm.refs.start.value = '10:10'
 		createAlarm.refs.end.value = '20:10'
 		createAlarm.refs.notes.value = 'notes'
-		ReactTestUtils.Simulate.submit(createAlarm.refs.title)
+		ReactTestUtils.Simulate.submit(createAlarm.refs.submit)
 		expect(alarms[0].notes).toEqual('notes')
+	})
+	it('should add an alarm with travel time', function() {
+		var alarms = []
+		function mockAddAlarm(alarm) {
+			alarms.push(alarm)
+		}
+		var createAlarm = TestUtils.renderIntoDocument(<CreateAlarm addAlarm={mockAddAlarm}/>)
+		createAlarm.refs.title.value = 'newAlarm'
+		createAlarm.refs.start.value = '10:10'
+		createAlarm.refs.end.value = '20:10'
+    createAlarm.refs.travelTime.value = 15
+		ReactTestUtils.Simulate.submit(createAlarm.refs.submit)
+		expect(alarms[0].travelTime).toEqual(15)
+	})
+	it('should add an alarm with no travel time if none is selected', function() {
+		var alarms = []
+		function mockAddAlarm(alarm) {
+			alarms.push(alarm)
+		}
+		var createAlarm = TestUtils.renderIntoDocument(<CreateAlarm addAlarm={mockAddAlarm}/>)
+		createAlarm.refs.title.value = 'newAlarm'
+		createAlarm.refs.start.value = '10:10'
+		createAlarm.refs.end.value = '20:10'
+		ReactTestUtils.Simulate.submit(createAlarm.refs.submit)
+		expect(alarms[0].travelTime).toEqual(0)
 	})
 	it('should add an alarm without notes', function() {
 		var alarms = []
@@ -192,7 +217,7 @@ describe('CreateAlarm', function() {
 		createAlarm.refs.title.value = 'newAlarm'
 		createAlarm.refs.start.value = '10:10'
 		createAlarm.refs.end.value = '20:10'
-		ReactTestUtils.Simulate.submit(createAlarm.refs.title)
+		ReactTestUtils.Simulate.submit(createAlarm.refs.submit)
 		expect(alarms.length).toEqual(1)
 	})
 	it('should not add an alarm without a title', function() {
@@ -201,7 +226,7 @@ describe('CreateAlarm', function() {
 			alarms.push(alarm)
 		}
 		var createAlarm = TestUtils.renderIntoDocument(<CreateAlarm addAlarm={mockAddAlarm}/>)
-		ReactTestUtils.Simulate.submit(createAlarm.refs.title)
+		ReactTestUtils.Simulate.submit(createAlarm.refs.submit)
 		expect(alarms.length).toEqual(0)
 	})
 	it('should not add an alarm without a start time', function() {
@@ -211,10 +236,10 @@ describe('CreateAlarm', function() {
 		}
 		var createAlarm = TestUtils.renderIntoDocument(<CreateAlarm addAlarm={mockAddAlarm}/>)
 		createAlarm.refs.title.value = 'newAlarm'
-		ReactTestUtils.Simulate.submit(createAlarm.refs.title)
+		ReactTestUtils.Simulate.submit(createAlarm.refs.submit)
 		expect(alarms.length).toEqual(0)
 	})
-	it('should not add an alarm without a end time', function() {
+	it('should not add an alarm without an end time', function() {
 		var alarms = []
 		function mockAddAlarm(alarm) {
 			alarms.push(alarm)
@@ -222,7 +247,7 @@ describe('CreateAlarm', function() {
 		var createAlarm = TestUtils.renderIntoDocument(<CreateAlarm addAlarm={mockAddAlarm}/>)
 		createAlarm.refs.title.value = 'newAlarm'
 		createAlarm.refs.start.value = '10:10'
-		ReactTestUtils.Simulate.submit(createAlarm.refs.title)
+		ReactTestUtils.Simulate.submit(createAlarm.refs.submit)
 		expect(alarms.length).toEqual(0)
 	})
 	it('time should work with single single digit numbers for hour and minute', function() {
@@ -234,7 +259,7 @@ describe('CreateAlarm', function() {
 		createAlarm.refs.title.value = 'newAlarm'
 		createAlarm.refs.start.value = '01:01'
 		createAlarm.refs.end.value = '09:09'
-		ReactTestUtils.Simulate.submit(createAlarm.refs.title)
+		ReactTestUtils.Simulate.submit(createAlarm.refs.submit)
 		expect(alarms[0].start).toEqual({
 			hour: 1,
 			minute: 1
@@ -253,7 +278,7 @@ describe('CreateAlarm', function() {
 		createAlarm.refs.title.value = 'newAlarm'
 		createAlarm.refs.start.value = '00:00'
 		createAlarm.refs.end.value = '00:00'
-		ReactTestUtils.Simulate.submit(createAlarm.refs.title)
+		ReactTestUtils.Simulate.submit(createAlarm.refs.submit)
 		expect(alarms[0].start).toEqual({
 			hour: 0,
 			minute: 0

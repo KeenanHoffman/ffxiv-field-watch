@@ -10,8 +10,8 @@ var CreateAlarm = React.createClass({
 	onSubmit: function(e) {
 		e.preventDefault()
 		var start = this.refs.start.value.split(':')
-		var end = this.refs.end.value.split(':')		
-		if(this.refs.title.value === '' || start[0] === '' || end[0] === '') return		
+		var end = this.refs.end.value.split(':')
+		if(this.refs.title.value === '' || start[0] === '' || end[0] === '') return
 		this.props.addAlarm({
 			title: this.refs.title.value,
 			start: {
@@ -25,7 +25,8 @@ var CreateAlarm = React.createClass({
 			notes: this.refs.notes.value,
 			location: this.refs.location.value === '---' ? '' : this.refs.location.value,
 			currentWeather: this.refs.currentWeather.value === '---' ? '' : this.refs.currentWeather.value,
-			previousWeather: this.refs.previousWeather.value === '---' ? '' : this.refs.previousWeather.value
+			previousWeather: this.refs.previousWeather.value === '---' ? '' : this.refs.previousWeather.value,
+      travelTime: Number(this.refs.travelTime.value)
 		})
 	},
 	updateWeatherList: function() {
@@ -46,6 +47,7 @@ var CreateAlarm = React.createClass({
 					<input ref="title" />
 					<input type="time" ref="start" />
 					<input type="time" ref="end" />
+          <input type="number" defaultValue="0" ref="travelTime" />
 					<select className="location" onChange={this.updateWeatherList} ref="location">
 						<option>---</option>
 						{locations}
@@ -59,6 +61,7 @@ var CreateAlarm = React.createClass({
 						{weathers}
 					</select>
 					<textarea rows="4" cols="50" ref="notes" />
+          <input type="submit" ref="submit" />
 				</form>
 			</div>
 		)
