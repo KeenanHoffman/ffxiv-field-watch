@@ -1,5 +1,6 @@
 import React from 'react';
 import Weatherfinder from '../../helpers/weather'
+import './CreateAlarm.css'
 
 var CreateAlarm = React.createClass({
 	getInitialState: function() {
@@ -42,26 +43,38 @@ var CreateAlarm = React.createClass({
 			return <option key={key} >{weather}</option>
 		})
     return (
-			<div>
-				<form action="" onSubmit={this.onSubmit}>
-					<input ref="title" />
-					<input type="time" ref="start" />
-					<input type="time" ref="end" />
-          <input type="number" defaultValue="0" ref="travelTime" />
-					<select className="location" onChange={this.updateWeatherList} ref="location">
-						<option>---</option>
-						{locations}
-					</select>
-					<select ref="currentWeather">
-						<option>---</option>
-						{weathers}
-					</select>
-					<select ref="previousWeather">
-						<option>---</option>
-						{weathers}
-					</select>
-					<textarea rows="4" cols="50" ref="notes" />
-          <input type="submit" ref="submit" />
+			<div id="createAlarm">
+				<form action="" onSubmit={this.onSubmit} className="row">
+          <div className="column">
+            <input type="text" ref="title" />
+          </div>
+          <div className="column">
+            <input type="time" ref="start" className="column" />
+            <input type="time" ref="end" className="column" />
+          </div>
+          <div className="column">
+            <input type="number" defaultValue="0" ref="travelTime" />
+          </div>
+          <div className="column">
+            <select className="location" onChange={this.updateWeatherList} ref="location">
+              <option>---</option>
+              {locations}
+            </select>
+            <select ref="currentWeather">
+              <option>---</option>
+              {weathers}
+            </select>
+            <select ref="previousWeather">
+              <option>---</option>
+              {weathers}
+            </select>
+          </div>
+          <div className="column">
+            <textarea ref="notes" />
+          </div>
+          <div className="column">
+            <input type="submit" ref="submit" className="button-black" />
+          </div>
 				</form>
 			</div>
 		)

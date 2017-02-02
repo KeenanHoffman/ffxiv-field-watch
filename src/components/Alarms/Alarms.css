@@ -1,6 +1,11 @@
 .sounding {
-	background-color: green
+	background-color: #4CAF50;
+  color: #F5F5F5;
+  padding: 1em 5rem 1rem 5rem;
+  margin: 0 1px 0 1px;
 }
 .silent {
-	background-color: red
+	background-color: #F5F5F5;
+  padding: 1em 5rem 1rem 5rem;
+  margin: 0 1px 0 1px;
 }

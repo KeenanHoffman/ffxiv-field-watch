@@ -4,6 +4,6 @@ import App from './components/App/App';
 import './index.css';
 
 ReactDOM.render(
-  <App datastore={localStorage} />,
+  <App datastore={localStorage} class="container" />,
   document.getElementById('root')
 );

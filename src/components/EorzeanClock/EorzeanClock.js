@@ -10,7 +10,7 @@ var EorzeanClock = React.createClass({
 		var minute = pad(this.props.time.minute)
 		var suffix = (this.props.time.hour < 12 ? 'am' : 'pm')
     return (
-			<span className="eorzeanClock">{hour}:{minute}{suffix}</span>
+			<p className="eorzeanClock">{hour}:{minute}{suffix}</p>
 		)
   }
 })

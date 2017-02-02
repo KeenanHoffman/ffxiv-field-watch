@@ -1,0 +1,26 @@
+.button-black {
+  background-color: #2962FF !important;
+  border-color: #2962FF !important;
+}
+
+input[type="time"]::-webkit-clear-button {
+    display: none;
+}
+
+input {
+  font-size: 1.5em;
+}
+
+form {
+  color: #606c76 !important;
+}
+
+#createAlarm {
+  display: block;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: #FAFAFA;
+  height: 10em;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+}

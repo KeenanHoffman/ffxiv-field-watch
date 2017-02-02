@@ -51,24 +51,26 @@ var Alarm = React.createClass({
     var timeCheck = ((timeIsCorrect || timeIsBetweenTravelTimeAndAlarmStart) && (timeIsCorrectWithTravelTime || timeIsBetweenEndTimeMinusTravelTimeAndEndTime))
     return weatherCheck && timeCheck
 	},
+  shouldPlayAlarm: true,
 	render: function() {
 		this.sounding = this.isAlarmSounding()
-    if(this.sounding && this.props.alarm.shouldPlayAlarm) {
-      this.props.alarm.shouldPlayAlarm = false
+    if(this.sounding && this.shouldPlayAlarm) {
+      this.shouldPlayAlarm = false
       this.props.playAlarm()
     }
-    if(!this.sounding && !this.props.alarm.shouldPlayAlarm) {
-      this.props.alarm.shouldPlayAlarm = true
+    if(!this.sounding && !this.shouldPlayAlarm) {
+      this.shouldPlayAlarm = true
     }
 		var className = this.sounding ? 'sounding' : 'silent'
 		var notes = this.sounding ? this.props.alarm.notes : ''
     var currentWeather = this.sounding ? this.props.alarm.currentWeather : ''
     var previousWeather = this.sounding ? this.props.alarm.previousWeather : ''
 		return (
-			<div className={className}>
-				<EorzeanClock time={this.props.alarm.start} />
-				<EorzeanClock time={this.props.alarm.end} />
+			<div className={className + " row"}>
 				<p>{this.props.alarm.title}</p>
+				<EorzeanClock time={this.props.alarm.start} />
+        <p>-</p>
+				<EorzeanClock time={this.props.alarm.end} />
 				<p>{this.props.alarm.location}</p>
 				<p>{currentWeather}</p>
         <p>{previousWeather}</p>
