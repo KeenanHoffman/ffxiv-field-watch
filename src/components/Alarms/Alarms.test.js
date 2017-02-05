@@ -406,6 +406,30 @@ describe('Alarm', function() {
 				}, jest.fn(), 1485714959000)
 			expect(alarm.sounding).toEqual(false)
 		})
+		it('should be sounding with only current weather settings', function() {
+			var alarm = renderAlarmIntoDocument({hour: 4, minute: 11}, {
+					title: 'newAlarm',
+					start: undefined,
+					end: undefined,
+					currentWeather: 'Fog',
+          previousWeather: '',
+					location: 'Limsa Lominsa',
+          travelTime: 0
+				}, jest.fn(), 1486263134078)
+			expect(alarm.sounding).toEqual(true)
+		})
+		it('should be sounding with only current and previous weather settings', function() {
+			var alarm = renderAlarmIntoDocument({hour: 4, minute: 11}, {
+					title: 'newAlarm',
+					start: undefined,
+					end: undefined,
+					currentWeather: 'Fog',
+          previousWeather: 'Clear Skies',
+					location: 'Limsa Lominsa',
+          travelTime: 0
+				}, jest.fn(), 1486263134078)
+			expect(alarm.sounding).toEqual(true)
+		})
 	})
 })
 
