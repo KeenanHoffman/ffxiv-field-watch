@@ -12,17 +12,11 @@ var CreateAlarm = React.createClass({
 		e.preventDefault()
 		var start = this.refs.start.value.split(':')
 		var end = this.refs.end.value.split(':')
-		if(this.refs.title.value === '' || start[0] === '' || end[0] === '') return
+		if(this.refs.title.value === '' || ((this.refs.start.value === '' || this.refs.end.value === '') && this.refs.currentWeather.value === '---')) return
 		this.props.addAlarm({
 			title: this.refs.title.value,
-			start: {
-				hour: Number(start[0]),
-				minute: Number(start[1])
-			},
-			end: {
-				hour: Number(end[0]),
-				minute: Number(end[1])
-			},
+			start: this.refs.start.value === '' ? undefined : {hour: Number(start[0]), minute: Number(start[1])},
+			end: this.refs.start.value === '' ? undefined : {hour: Number(end[0]), minute: Number(end[1])},
 			notes: this.refs.notes.value,
 			location: this.refs.location.value === '---' ? '' : this.refs.location.value,
 			currentWeather: this.refs.currentWeather.value === '---' ? '' : this.refs.currentWeather.value,

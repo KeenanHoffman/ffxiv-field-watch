@@ -39,7 +39,7 @@ var Alarm = React.createClass({
 
     var timeCheck
     var timeIsBetweenEndTimeMinusTravelTimeAndEndTime
-    if(this.props.alarm.start == undefined) {
+    if(this.props.alarm.start === undefined) {
       timeCheck = true
       timeIsBetweenEndTimeMinusTravelTimeAndEndTime = false
     } else {

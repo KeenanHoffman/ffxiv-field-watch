@@ -146,6 +146,80 @@ describe('CreateAlarm', function() {
 		ReactTestUtils.Simulate.submit(createAlarm.refs.submit)
 		expect(alarms[0].previousWeather).toEqual('Clouds')
 	})
+	it('should add the desired current weather to an alarm and not add start and end time', function() {
+		var alarms = []
+		function mockAddAlarm(alarm) {
+			alarms.push(alarm)
+		}
+		var createAlarm = TestUtils.renderIntoDocument(<CreateAlarm addAlarm={mockAddAlarm}/>)
+		createAlarm.refs.title.value = 'newAlarm'
+		var form = TestUtils.findRenderedDOMComponentWithTag(createAlarm, 'form')
+		var location = TestUtils.findRenderedDOMComponentWithClass(createAlarm, 'location')
+		createAlarm.refs.location.value = 'Limsa Lominsa'
+		ReactTestUtils.Simulate.change(location)
+		createAlarm.refs.currentWeather.value = 'Clouds'
+		ReactTestUtils.Simulate.submit(createAlarm.refs.submit)
+		expect(alarms[0].currentWeather).toEqual('Clouds')
+		expect(alarms[0].start).toEqual(undefined)
+		expect(alarms[0].end).toEqual(undefined)
+	})
+	it('should add the desired current and previous weather to an alarm and not add start and end time', function() {
+		var alarms = []
+		function mockAddAlarm(alarm) {
+			alarms.push(alarm)
+		}
+		var createAlarm = TestUtils.renderIntoDocument(<CreateAlarm addAlarm={mockAddAlarm}/>)
+		createAlarm.refs.title.value = 'newAlarm'
+		var form = TestUtils.findRenderedDOMComponentWithTag(createAlarm, 'form')
+		var location = TestUtils.findRenderedDOMComponentWithClass(createAlarm, 'location')
+		createAlarm.refs.location.value = 'Limsa Lominsa'
+		ReactTestUtils.Simulate.change(location)
+		createAlarm.refs.currentWeather.value = 'Clouds'
+		createAlarm.refs.previousWeather.value = 'Fog'
+		ReactTestUtils.Simulate.submit(createAlarm.refs.submit)
+		expect(alarms[0].currentWeather).toEqual('Clouds')
+		expect(alarms[0].previousWeather).toEqual('Fog')
+	})
+	it('should not add an alarm when previous weather is selected, but current weather is not selected', function() {
+		var alarms = []
+		function mockAddAlarm(alarm) {
+			alarms.push(alarm)
+		}
+		var createAlarm = TestUtils.renderIntoDocument(<CreateAlarm addAlarm={mockAddAlarm}/>)
+		createAlarm.refs.title.value = 'newAlarm'
+		var form = TestUtils.findRenderedDOMComponentWithTag(createAlarm, 'form')
+		var location = TestUtils.findRenderedDOMComponentWithClass(createAlarm, 'location')
+		createAlarm.refs.location.value = 'Limsa Lominsa'
+		ReactTestUtils.Simulate.change(location)
+		createAlarm.refs.previousWeather.value = 'Fog'
+		ReactTestUtils.Simulate.submit(createAlarm.refs.submit)
+		expect(alarms.length).toEqual(0)
+	})
+	it('should not add an alarm when neither current weather nor start time is selected', function() {
+		var alarms = []
+		function mockAddAlarm(alarm) {
+			alarms.push(alarm)
+		}
+		var createAlarm = TestUtils.renderIntoDocument(<CreateAlarm addAlarm={mockAddAlarm}/>)
+		createAlarm.refs.title.value = 'newAlarm'
+		var form = TestUtils.findRenderedDOMComponentWithTag(createAlarm, 'form')
+		var location = TestUtils.findRenderedDOMComponentWithClass(createAlarm, 'location')
+		ReactTestUtils.Simulate.submit(createAlarm.refs.submit)
+		expect(alarms.length).toEqual(0)
+	})
+	it('should not add an alarm when a start time is selected but not an end time', function() {
+		var alarms = []
+		function mockAddAlarm(alarm) {
+			alarms.push(alarm)
+		}
+		var createAlarm = TestUtils.renderIntoDocument(<CreateAlarm addAlarm={mockAddAlarm}/>)
+		createAlarm.refs.title.value = 'newAlarm'
+		createAlarm.refs.start.value = '10:10'
+		var form = TestUtils.findRenderedDOMComponentWithTag(createAlarm, 'form')
+		var location = TestUtils.findRenderedDOMComponentWithClass(createAlarm, 'location')
+		ReactTestUtils.Simulate.submit(createAlarm.refs.submit)
+		expect(alarms.length).toEqual(0)
+	})
 	it('should not add the previous weather to an alarm', function() {
 		var alarms = []
 		function mockAddAlarm(alarm) {
@@ -226,27 +300,6 @@ describe('CreateAlarm', function() {
 			alarms.push(alarm)
 		}
 		var createAlarm = TestUtils.renderIntoDocument(<CreateAlarm addAlarm={mockAddAlarm}/>)
-		ReactTestUtils.Simulate.submit(createAlarm.refs.submit)
-		expect(alarms.length).toEqual(0)
-	})
-	it('should not add an alarm without a start time', function() {
-		var alarms = []
-		function mockAddAlarm(alarm) {
-			alarms.push(alarm)
-		}
-		var createAlarm = TestUtils.renderIntoDocument(<CreateAlarm addAlarm={mockAddAlarm}/>)
-		createAlarm.refs.title.value = 'newAlarm'
-		ReactTestUtils.Simulate.submit(createAlarm.refs.submit)
-		expect(alarms.length).toEqual(0)
-	})
-	it('should not add an alarm without an end time', function() {
-		var alarms = []
-		function mockAddAlarm(alarm) {
-			alarms.push(alarm)
-		}
-		var createAlarm = TestUtils.renderIntoDocument(<CreateAlarm addAlarm={mockAddAlarm}/>)
-		createAlarm.refs.title.value = 'newAlarm'
-		createAlarm.refs.start.value = '10:10'
 		ReactTestUtils.Simulate.submit(createAlarm.refs.submit)
 		expect(alarms.length).toEqual(0)
 	})
