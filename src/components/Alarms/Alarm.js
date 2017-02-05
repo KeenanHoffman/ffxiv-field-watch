@@ -67,14 +67,14 @@ var Alarm = React.createClass({
     var previousWeather = this.sounding ? this.props.alarm.previousWeather : ''
 		return (
 			<div className={className + " row"}>
-				<p>{this.props.alarm.title}</p>
+				<p className="column column-10">{this.props.alarm.title}</p>
 				<EorzeanClock time={this.props.alarm.start} />
         <p>-</p>
 				<EorzeanClock time={this.props.alarm.end} />
-				<p>{this.props.alarm.location}</p>
-				<p>{currentWeather}</p>
-        <p>{previousWeather}</p>
-				<p>{notes}</p>
+				<p className="column column-10">{this.props.alarm.location}</p>
+				<p className="column column-10">{currentWeather}</p>
+        <p className="column column-10">{previousWeather}</p>
+				<p className="column column-50">{notes}</p>
 			</div>
 		)
 	}

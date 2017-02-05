@@ -15,22 +15,12 @@ describe('EorzeanClock', function() {
  		ReactDOM.render(<EorzeanClock time={time}/>, div)
 	})
 
-	it('should have className eorzeanClock', function() {
-		var renderer = TestUtils.createRenderer()		
-    renderer.render(
-			<EorzeanClock time={time}/>
-    )
- 
-    var clock = renderer.getRenderOutput()
-		expect(clock.props.className).toEqual('eorzeanClock')
-	})
-
 	it('should display the given time', function() {
 		var renderer = TestUtils.createRenderer()
 		renderer.render(
 			<EorzeanClock time={time}/>
     )
- 
+
     var clock = renderer.getRenderOutput()
 		expect(clock.props.children).toEqual(['10', ':', '22', 'am']);
 	})
@@ -44,7 +34,7 @@ describe('EorzeanClock', function() {
     renderer.render(
 			<EorzeanClock time={time}/>
     )
- 
+
     var clock = renderer.getRenderOutput()
 		expect(clock.props.children[0]).toEqual('01')
 	})
@@ -58,7 +48,7 @@ describe('EorzeanClock', function() {
     renderer.render(
 			<EorzeanClock time={time}/>
     )
- 
+
     var clock = renderer.getRenderOutput()
 		expect(clock.props.children[2]).toEqual('01')
 	})
@@ -71,7 +61,7 @@ describe('EorzeanClock', function() {
     renderer.render(
 			<EorzeanClock time={time}/>
     )
- 
+
     var clock = renderer.getRenderOutput()
 		expect(clock.props.children).toEqual(['01', ':', '10', 'pm'])
 
@@ -85,7 +75,7 @@ describe('EorzeanClock', function() {
     renderer.render(
 			<EorzeanClock time={time}/>
     )
- 
+
     var clock = renderer.getRenderOutput();
 		expect(clock.props.children).toEqual(['12', ':', '00', 'pm'])
 	})
@@ -98,7 +88,7 @@ describe('EorzeanClock', function() {
     renderer.render(
 			<EorzeanClock time={time}/>
     )
- 
+
     var clock = renderer.getRenderOutput()
 		expect(clock.props.children).toEqual(['12', ':', '00', 'am'])
 	})

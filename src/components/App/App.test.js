@@ -41,7 +41,7 @@ describe('App', function() {
     );
 
     var app = renderer.getRenderOutput()
-		expect(app.props.children[0].props.time.hour).not.toEqual(undefined)
+		expect(app.props.children[0].props.children[1].props.time.hour).not.toEqual(undefined)
 	})
 	it('should update the clock over time', function() {
 		var renderer = TestUtils.createRenderer()
@@ -51,7 +51,7 @@ describe('App', function() {
 
     var app = renderer.getRenderOutput()
 		var time1 = app
-		function getTimeAfter2Sec() {
+		function getTimeLater() {
 			return new Promise(function(resolve) {
 				setTimeout(function() {
 					var renderer2 = TestUtils.createRenderer()
@@ -59,12 +59,12 @@ describe('App', function() {
 						<App datastore={mockDatastore} />
 	    		)
   	  		var app2 = renderer.getRenderOutput()
-					resolve(app2.props.children[0].props.time.minute)
+					resolve(app2.props.children[0].props.children[1].props.time.minute)
 				}, 4500)
 			})
 		}
-		return getTimeAfter2Sec().then(function(time2) {
-			expect(time1.props.children[0].props.time.minute).not.toEqual(time2)
+		return getTimeLater().then(function(time2) {
+			expect(time1.props.children[0].props.children[1].props.time.minute).not.toEqual(time2)
 		})
 	})
 	it('should display alarms', function() {

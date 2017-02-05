@@ -168,7 +168,7 @@ describe('CreateAlarm', function() {
     )
 
     var createAlarm = renderer.getRenderOutput();
-		expect(createAlarm.props.children.props.children[3].props.children[0].props.children[1].length).toEqual(31)
+		expect(createAlarm.props.children.props.children[2].props.children[0].props.children[1].props.children.props.children[1].length).toEqual(31)
 	})
 	it('should add an alarm with notes', function() {
 		var alarms = []

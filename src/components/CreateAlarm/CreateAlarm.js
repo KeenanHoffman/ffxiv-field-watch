@@ -46,33 +46,53 @@ var CreateAlarm = React.createClass({
 			<div id="createAlarm">
 				<form action="" onSubmit={this.onSubmit} className="row">
           <div className="column">
-            <input type="text" ref="title" />
+            <label htmlFor="title">Title</label>
+            <span className="form-item"><input name="title"type="text" ref="title" /></span>
           </div>
           <div className="column">
-            <input type="time" ref="start" className="column" />
-            <input type="time" ref="end" className="column" />
+            <div>
+              <label htmlFor="start">Start</label>
+              <span className="form-item"><input name="start" type="time" ref="start" /></span>
+            </div>
+            <div>
+              <label htmlFor="end">End</label>
+              <span className="form-item"><input name="end" type="time" ref="end" /></span>
+            </div>
+            <div>
+              <label htmlFor="travel">Travel Time(min)</label>
+              <span className="form-item"><input name="travel" type="number" defaultValue="0" ref="travelTime" /></span>
+            </div>
           </div>
           <div className="column">
-            <input type="number" defaultValue="0" ref="travelTime" />
+            <div>
+              <label htmlFor="location">Area</label>
+              <span className="form-item">
+                <select name="location" className="location" onChange={this.updateWeatherList} ref="location">
+                  <option>---</option>
+                  {locations}
+                </select>
+              </span>
+            </div>
+            <div>
+              <label htmlFor="currentWeather">Weather Current</label>
+              <span className="form-item">
+                <select name="currentWeather" ref="currentWeather">
+                  <option>---</option>
+                  {weathers}
+                </select>
+              </span>
+            </div>
+            <label htmlFor="previousWeather">Prevous Current</label>
+            <span className="form-item">
+              <select name="previousWeather" ref="previousWeather">
+                <option>---</option>
+                {weathers}
+              </select>
+            </span>
           </div>
           <div className="column">
-            <select className="location" onChange={this.updateWeatherList} ref="location">
-              <option>---</option>
-              {locations}
-            </select>
-            <select ref="currentWeather">
-              <option>---</option>
-              {weathers}
-            </select>
-            <select ref="previousWeather">
-              <option>---</option>
-              {weathers}
-            </select>
-          </div>
-          <div className="column">
+            <label>Notes</label>
             <textarea ref="notes" />
-          </div>
-          <div className="column">
             <input type="submit" ref="submit" className="button-black" />
           </div>
 				</form>

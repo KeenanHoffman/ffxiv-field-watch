@@ -29,7 +29,10 @@ var App = React.createClass({
   render() {
     return (
 			<div>
-				<EorzeanClock time={this.state.time} />
+        <div className="clock">
+          <span>ET </span>
+          <EorzeanClock time={this.state.time} />
+        </div>
 				<Alarms time={this.state.time} epoch={new Date().getTime()} alarms={this.state.alarms}/>
 				<CreateAlarm ref="createAlarm" addAlarm={this.addAlarm}/>
 			</div>
