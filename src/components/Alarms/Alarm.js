@@ -35,13 +35,15 @@ var Alarm = React.createClass({
 	isAlarmSounding: function() {
 
     var weatherIsCorrect = isSameWeatherPattern(this.props.alarm, this.props.epoch)
-    var weatherIsCorrectWithTravelTime = isSameWeatherPattern(this.props.alarm, this.props.epoch + ((8 * 175 * 1000) * (this.props.alarm.travelTime / 60)))
+    var travelTimeForWeather = this.props.alarm.travelTime === 0 ? 0 : (this.props.alarm.travelTime / 60)
+    var weatherIsCorrectWithTravelTime = isSameWeatherPattern(this.props.alarm, this.props.epoch + ((1 * 175 * 1000) * travelTimeForWeather))
 
     var timeCheck
     var timeIsBetweenEndTimeMinusTravelTimeAndEndTime
+    var weatherCheck
     if(this.props.alarm.start === undefined) {
       timeCheck = true
-      timeIsBetweenEndTimeMinusTravelTimeAndEndTime = false
+      weatherCheck = (weatherIsCorrect || weatherIsCorrectWithTravelTime)
     } else {
       var timeInMinutes = convertTimeToMinutes(this.props.time)
       var startInMinutes = convertTimeToMinutes(this.props.alarm.start)
@@ -54,8 +56,8 @@ var Alarm = React.createClass({
       timeIsBetweenEndTimeMinusTravelTimeAndEndTime = isDuringAlarm(timeInMinutes, endInMinutes - this.props.alarm.travelTime, endInMinutes)
 
       timeCheck = ((timeIsCorrect || timeIsBetweenTravelTimeAndAlarmStart) && (timeIsCorrectWithTravelTime || timeIsBetweenEndTimeMinusTravelTimeAndEndTime))
+      weatherCheck = (weatherIsCorrect || (weatherIsCorrectWithTravelTime && !timeIsBetweenEndTimeMinusTravelTimeAndEndTime))
     }
-    var weatherCheck = (weatherIsCorrect || (weatherIsCorrectWithTravelTime && !timeIsBetweenEndTimeMinusTravelTimeAndEndTime))
     return weatherCheck && timeCheck
 	},
   shouldPlayAlarm: true,
