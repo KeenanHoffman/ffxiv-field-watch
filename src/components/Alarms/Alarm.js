@@ -72,21 +72,27 @@ var Alarm = React.createClass({
     }
 		var className = this.sounding ? 'sounding' : 'silent'
 		var notes = this.sounding ? this.props.alarm.notes : ''
-    var currentWeather = this.sounding ? this.props.alarm.currentWeather : ''
-    var previousWeather = this.sounding ? this.props.alarm.previousWeather : ''
     var startClock = this.props.alarm.start === undefined ? <p></p> : <EorzeanClock time={this.props.alarm.start} />
     var endClock = this.props.alarm.end === undefined ? <p></p> : <EorzeanClock time={this.props.alarm.end} />
+    var dash = this.props.alarm.start === undefined ? '' : '-'
 		return (
-			<div className={className + " row"}>
-				<p className="column column-10">{this.props.alarm.title}</p>
-        {startClock}
-        <p>-</p>
-        {endClock}
-				<p className="column column-10">{this.props.alarm.location}</p>
-				<p className="column column-10">{currentWeather}</p>
-        <p className="column column-10">{previousWeather}</p>
-				<p className="column column-50">{notes}</p>
-			</div>
+      <div className={className}>
+        <div className="row center">
+          <p className="column alarm-item">{this.props.alarm.title}</p>
+          <p className="column column-10 alarm-item">{this.props.alarm.travelTime + 'min'}</p>
+          <div className="column column-20 alarm-item">
+            <span>
+              {startClock}
+              {dash}
+              {endClock}
+            </span>
+          </div>
+          <p className="column column-20 alarm-item">{this.props.alarm.location}</p>
+          <p className="column column-10 alarm-item">{this.props.alarm.currentWeather}</p>
+          <p className="column column-10 alarm-item">{this.props.alarm.previousWeather}</p>
+        </div>
+        <p className="row notes">{notes}</p>
+      </div>
 		)
 	}
 })

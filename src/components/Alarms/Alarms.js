@@ -13,7 +13,7 @@ var Alarms = React.createClass({
 				}} />
 		})
 		return (
-			<ul>
+			<ul id="alarms">
 				{alarms}
 			</ul>
 		)

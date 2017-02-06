@@ -11,6 +11,18 @@
   border-bottom: 1px solid #BDBDBD;
 }
 
-p {
+.alarm-item {
+  font-size: 1.8rem;
+  font-weight: 600;
   overflow: hidden;
+}
+
+.notes {
+  font-weight: 500;
+  font-size: 1.6rem;
+  padding: 0 3rem 0 3rem;
+}
+
+.center {
+  text-align: center;
 }

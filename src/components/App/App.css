@@ -1,7 +1,21 @@
-.clock {
+#clock {
   font-size: 4em;
   top: 6rem;
   left: 1rem;
   position: fixed;
   z-index: 1;
+}
+
+.legend {
+  text-align: center;
+  position: fixed;
+  color: #F5F5F5;
+  bottom: 0;
+  padding: 3px 5rem 0 5rem;
+  background-color: rgba(33,33,33, 0.8);
+  box-shadow: 0 -3px 6px rgba(0,0,0,0.16), 0 -3px 6px rgba(0,0,0,0.23);
+}
+
+#alarms {
+  margin-top: 11em;
 }

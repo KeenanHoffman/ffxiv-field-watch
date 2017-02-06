@@ -76,7 +76,7 @@ var CreateAlarm = React.createClass({
                 </select>
               </span>
             </div>
-            <label htmlFor="previousWeather">Prevous Current</label>
+            <label htmlFor="previousWeather">Previous Current</label>
             <span className="form-item">
               <select name="previousWeather" ref="previousWeather">
                 <option>---</option>

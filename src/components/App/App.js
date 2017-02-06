@@ -29,12 +29,20 @@ var App = React.createClass({
   render() {
     return (
 			<div>
-        <div className="clock">
+        <div id="clock">
           <span>ET </span>
-          <EorzeanClock time={this.state.time} />
+          <EorzeanClock className="clockElement" time={this.state.time} />
         </div>
 				<Alarms time={this.state.time} epoch={new Date().getTime()} alarms={this.state.alarms}/>
 				<CreateAlarm ref="createAlarm" addAlarm={this.addAlarm}/>
+        <div className="legend row">
+          <p className="column alarm-item">Title</p>
+          <p className="column column-10 alarm-item">Travel Time</p>
+          <p className="column column-20 alarm-item">Time</p>
+          <p className="column column-20 alarm-item">Area</p>
+          <p className="column column-10 alarm-item">Current Weather</p>
+          <p className="column column-10 alarm-item">Previous Weather</p>
+        </div>
 			</div>
 		)
   }

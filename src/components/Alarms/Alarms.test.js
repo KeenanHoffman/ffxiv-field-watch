@@ -58,15 +58,15 @@ describe('Alarm', function() {
 	describe('display', function() {
 		it('should display an alarm\'s title', function() {
 			var alarm = renderAlarm(tenThirtyAM, newAlarm, undefined, jest.fn())
-			expect(alarm.props.children[0].props.children).toEqual('newAlarm')
+			expect(alarm.props.children[0].props.children[0].props.children).toEqual('newAlarm')
 		})
 		it('should display an alarm\'s start time', function() {
 			var alarm = renderAlarm(tenThirtyAM, newAlarm, undefined, jest.fn())
-			expect(alarm.props.children[1].props.time.hour).toEqual(10)
+			expect(alarm.props.children[0].props.children[2].props.children.props.children[0].props.time.hour).toEqual(10)
 		})
 		it('should display an alarms notes when it is sounding', function() {
 			var alarm = renderAlarm(tenThirtyAM, newAlarm, undefined, jest.fn())
-			expect(alarm.props.children[7].props.children).toEqual('notes')
+			expect(alarm.props.children[1].props.children).toEqual('notes')
 		})
 		it('should display an alarm\'s current weather when an alarm is sounding', function() {
 			var alarm = renderAlarm(tenThirtyAM, {
@@ -85,11 +85,11 @@ describe('Alarm', function() {
 					location: 'Middle La Noscea',
           travelTime: 0
 				}, 1484462434157, jest.fn())
-			expect(alarm.props.children[5].props.children).toEqual('Wind')
+			expect(alarm.props.children[0].props.children[4].props.children).toEqual('Wind')
 		})
-		it('should not display an alarm\'s current weather when an alarm is silent', function() {
+		it('should display an alarm\'s current weather when an alarm is silent', function() {
 			var alarm = renderAlarm({hour: 11, minute: 30}, alarmWithWeather, undefined, jest.fn())
-			expect(alarm.props.children[5].props.children).toEqual('')
+			expect(alarm.props.children[0].props.children[4].props.children).toEqual('Fair Skies')
 		})
 		it('should display an alarm\'s previous weather when an alarm is sounding', function() {
 			var alarm = renderAlarm(tenThirtyAM, {
@@ -108,23 +108,42 @@ describe('Alarm', function() {
 					location: 'Middle La Noscea',
           travelTime: 0
 				}, 1484462434157, jest.fn())
-			expect(alarm.props.children[6].props.children).toEqual('Fair Skies')
+			expect(alarm.props.children[0].props.children[5].props.children).toEqual('Fair Skies')
 		})
-		it('should not display an alarm\'s previous weather when an alarm is silent', function() {
-			var alarm = renderAlarm({hour: 11, minute: 30}, alarmWithWeather, undefined, jest.fn())
-			expect(alarm.props.children[6].props.children).toEqual('')
+		it('should display an alarm\'s previous weather when an alarm is silent', function() {
+      var alarm = renderAlarm(tenThirtyAM, {
+					title: 'newAlarm',
+					start: {
+						hour: 10,
+						minute: 0
+					},
+					end: {
+						hour: 11,
+						minute: 0
+					},
+					notes: 'notes',
+					currentWeather: 'Wind',
+					previousWeather: 'Fair Skies',
+					location: 'Middle La Noscea',
+          travelTime: 0
+				}, 1484462434157, jest.fn())
+			expect(alarm.props.children[0].props.children[5].props.children).toEqual('Fair Skies')
 		})
 		it('should display an alarm\'s Location', function() {
 			var alarm = renderAlarm(tenThirtyAM, alarmWithWeather, undefined, jest.fn())
-			expect(alarm.props.children[4].props.children).toEqual('Limsa Lominsa')
+			expect(alarm.props.children[0].props.children[3].props.children).toEqual('Limsa Lominsa')
 		})
 		it('should not display an alarms notes when it is silent', function() {
 			var alarm = renderAlarm({hour: 11, minute: 30}, newAlarm, undefined, jest.fn())
-			expect(alarm.props.children[7].props.children).toEqual('')
+			expect(alarm.props.children[1].props.children).toEqual('')
 		})
 		it('should display an alarm\'s end time', function() {
 			var alarm = renderAlarm(tenThirtyAM, newAlarm, undefined, jest.fn())
-			expect(alarm.props.children[3].props.time.hour).toEqual(11)
+			expect(alarm.props.children[0].props.children[2].props.children.props.children[2].props.time.hour).toEqual(11)
+		})
+		it('should display an alarm\'s travel time', function() {
+			var alarm = renderAlarm(tenThirtyAM, newAlarm, undefined, jest.fn())
+			expect(alarm.props.children[0].props.children[1].props.children).toEqual('0min')
 		})
 	})
 
