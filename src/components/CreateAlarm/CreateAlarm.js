@@ -5,7 +5,8 @@ import './CreateAlarm.css'
 var CreateAlarm = React.createClass({
 	getInitialState: function() {
 		return {
-		 weatherList: []
+		 weatherList: [],
+      display: "hide"
 		}
 	},
 	onSubmit: function(e) {
@@ -24,11 +25,22 @@ var CreateAlarm = React.createClass({
       travelTime: Number(this.refs.travelTime.value)
 		})
 	},
+
 	updateWeatherList: function() {
 		this.setState({
 			weatherList: Weatherfinder.weatherLists[this.refs.location.value]
 		})
 	},
+  showForm: function() {
+    this.setState({
+      display: 'show'
+    })
+  },
+  hideForm: function() {
+    this.setState({
+      display: 'hide'
+    })
+  },
   render() {
 		var locations = Object.keys(Weatherfinder.weatherLists).map(function(location, key) {
 			return <option key={key} >{location}</option>
@@ -38,7 +50,7 @@ var CreateAlarm = React.createClass({
 		})
     return (
 			<div id="createAlarm">
-				<form action="" onSubmit={this.onSubmit} className="row">
+				<form ref="alarmForm" action="" onSubmit={this.onSubmit} className={this.state.display + " row"}>
           <div className="column">
             <label htmlFor="title">Title</label>
             <span className="form-item"><input name="title"type="text" ref="title" /></span>
@@ -90,6 +102,10 @@ var CreateAlarm = React.createClass({
             <input type="submit" ref="submit" className="button-black" />
           </div>
 				</form>
+        <div id="toggleButtons" className="row">
+          <button ref="show" className={(this.state.display === 'show' ? 'hide' : 'show') + " toggleForm"} onClick={this.showForm}>+</button>
+          <button ref="hide" className={(this.state.display === 'show' ? 'show' : 'hide') + " toggleForm"} onClick={this.hideForm}>-</button>
+        </div>
 			</div>
 		)
   }

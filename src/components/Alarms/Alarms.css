@@ -1,28 +1,113 @@
-.sounding {
-	background-color: #4CAF50;
-  color: #F5F5F5;
-  padding: 1em 5rem 1rem 5rem;
-  border-bottom: 1px solid #FAFAFA;
+@media (max-width: 40rem) {
+  .arrow {
+    order: 6;
+    flex-shrink: 0;
+    flex-basis: 4% !important;
+    margin-top: .8rem;
+    height: 3vw;
+    margin-bottom: 0;
+  }
+  .center {
+    text-align: center;
+    display: flex !important;
+    flex-flow: row wrap;
+  }
+  .title {
+    order:1;
+    flex-shrink: 0;
+    flex-basis: 60% !important;
+    max-width: 100% !important;
+    font-size: 3rem;
+    text-align: center;
+  }
+  .travel-time {
+    order: 3;
+    flex-shrink: 0;
+    flex-basis: 15% !important;
+    max-width: 100% !important;
+    font-size: 1.4rem;
+    margin-top: 3px;
+    margin-bottom: 0;
+  }
+  .time {
+    order: 4;
+    flex-shrink: 0;
+    flex-basis: 35% !important;
+    text-align: left !important;
+    max-width: 100% !important;
+    text-align: center;
+    font-weight: 600;
+    margin-bottom: 0;
+  }
+  .area {
+    order: 2;
+    flex-shrink: 0;
+    flex-basis: 40% !important;
+    text-align: center;
+    font-weight: 600;
+    display: flex;
+    max-width: 100% !important;
+  }
+  .current-weather {
+    order: 7;
+    flex-shrink: 0;
+    flex-basis: 23% !important;
+    text-align: center;
+    max-width: 100% !important;
+    width: 20% !important;
+    font-size: 1.4rem;
+    margin-top: 3px;
+    margin-bottom: 0;
+  }
+  .previous-weather {
+    order: 5;
+    flex-shrink: 0;
+    flex-basis: 23% !important;
+    text-align: center;
+    max-width: 100% !important;
+    width: 20% !important;
+    font-size: 1.4rem;
+    margin-top: 3px;
+    margin-bottom: 0;
+  }
+  .sounding {
+    background-color: #4CAF50;
+    color: #F5F5F5;
+    padding: 1rem 1rem 0 1rem;
+    border-bottom: 1px solid #FAFAFA;
+  }
+  .silent {
+    background-color: #F5F5F5;
+    padding: 1rem 1rem 0 1rem;
+    border-bottom: 1px solid #BDBDBD;
+  }
 }
-
-.silent {
-	background-color: #F5F5F5;
-  padding: 1em 5rem 1rem 5rem;
-  border-bottom: 1px solid #BDBDBD;
-}
-
-.alarm-item {
-  font-size: 1.8rem;
-  font-weight: 600;
-  overflow: hidden;
-}
-
-.notes {
-  font-weight: 500;
-  font-size: 1.6rem;
-  padding: 0 3rem 0 3rem;
-}
-
-.center {
-  text-align: center;
+@media (min-width: 40rem) {
+  .arrow {
+    display: none;
+  }
+  .sounding {
+    background-color: #4CAF50;
+    color: #F5F5F5;
+    padding: 1em 5rem 1rem 5rem;
+    border-bottom: 1px solid #FAFAFA;
+  }
+  .silent {
+    background-color: #F5F5F5;
+    padding: 1em 5rem 1rem 5rem;
+    border-bottom: 1px solid #BDBDBD;
+  }
+  .alarm-item {
+    font-size: 1.8rem;
+    font-weight: 600;
+    overflow: hidden;
+  }
+  .notes {
+    font-weight: 500;
+    font-size: 1.6rem;
+    padding: 0 3rem 0 3rem;
+  }
+  .center {
+    text-align: center;
+  }
 }

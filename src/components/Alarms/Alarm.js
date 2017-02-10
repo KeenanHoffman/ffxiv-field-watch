@@ -1,6 +1,7 @@
 import React from 'react'
 import EorzeanClock from '../EorzeanClock/EorzeanClock'
 import Weatherfinder from '../../helpers/weather'
+import arrow from './arrow.png'
 
 function isSameWeatherPattern(alarm, epoch) {
 	if(alarm.currentWeather === '') {
@@ -78,18 +79,19 @@ var Alarm = React.createClass({
 		return (
       <div className={className}>
         <div className="row center">
-          <p className="column alarm-item">{this.props.alarm.title}</p>
-          <p className="column column-10 alarm-item">{this.props.alarm.travelTime + 'min'}</p>
-          <div className="column column-20 alarm-item">
+          <p className="column alarm-item title">{this.props.alarm.title}</p>
+          <p className="column column-10 alarm-item travel-time">{this.props.alarm.travelTime + 'min'}</p>
+          <div className="column column-20 alarm-item time">
             <span>
               {startClock}
               {dash}
               {endClock}
             </span>
           </div>
-          <p className="column column-20 alarm-item">{this.props.alarm.location}</p>
-          <p className="column column-10 alarm-item">{this.props.alarm.currentWeather}</p>
-          <p className="column column-10 alarm-item">{this.props.alarm.previousWeather}</p>
+          <p className="column column-20 alarm-item area">{this.props.alarm.location}</p>
+          <p className="column column-10 alarm-item current-weather">{this.props.alarm.currentWeather}</p>
+          <img className="arrow" src={arrow} />
+          <p className="column column-10 alarm-item previous-weather">{this.props.alarm.previousWeather}</p>
         </div>
         <p className="row notes">{notes}</p>
       </div>

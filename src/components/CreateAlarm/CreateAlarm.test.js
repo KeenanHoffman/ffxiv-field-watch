@@ -242,7 +242,7 @@ describe('CreateAlarm', function() {
     )
 
     var createAlarm = renderer.getRenderOutput();
-		expect(createAlarm.props.children.props.children[2].props.children[0].props.children[1].props.children.props.children[1].length).toEqual(31)
+		expect(createAlarm.props.children[0].props.children[2].props.children[0].props.children[1].props.children.props.children[1].length).toEqual(31)
 	})
 	it('should add an alarm with notes', function() {
 		var alarms = []
@@ -340,6 +340,27 @@ describe('CreateAlarm', function() {
 			hour: 0,
 			minute: 0
 		})
+	})
+	it('clicking show button should show the create alarm form and hide the show button', function() {
+		var alarms = []
+		function mockAddAlarm(alarm) {
+			alarms.push(alarm)
+		}
+		var createAlarm = TestUtils.renderIntoDocument(<CreateAlarm addAlarm={mockAddAlarm}/>)
+		ReactTestUtils.Simulate.click(createAlarm.refs.show)
+    expect(createAlarm.refs.alarmForm.className).toMatch(/show/)
+    expect(createAlarm.refs.show.className).toMatch(/hide/)
+	})
+	it('clicking hide button should hide the create alarm form', function() {
+		var alarms = []
+		function mockAddAlarm(alarm) {
+			alarms.push(alarm)
+		}
+		var createAlarm = TestUtils.renderIntoDocument(<CreateAlarm addAlarm={mockAddAlarm}/>)
+		ReactTestUtils.Simulate.click(createAlarm.refs.show)
+		ReactTestUtils.Simulate.click(createAlarm.refs.hide)
+    expect(createAlarm.refs.alarmForm.className).toMatch(/hide/)
+    expect(createAlarm.refs.hide.className).toMatch(/hide/)
 	})
 })
 

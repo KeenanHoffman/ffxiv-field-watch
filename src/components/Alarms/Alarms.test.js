@@ -108,7 +108,7 @@ describe('Alarm', function() {
 					location: 'Middle La Noscea',
           travelTime: 0
 				}, 1484462434157, jest.fn())
-			expect(alarm.props.children[0].props.children[5].props.children).toEqual('Fair Skies')
+			expect(alarm.props.children[0].props.children[6].props.children).toEqual('Fair Skies')
 		})
 		it('should display an alarm\'s previous weather when an alarm is silent', function() {
       var alarm = renderAlarm(tenThirtyAM, {
@@ -127,7 +127,7 @@ describe('Alarm', function() {
 					location: 'Middle La Noscea',
           travelTime: 0
 				}, 1484462434157, jest.fn())
-			expect(alarm.props.children[0].props.children[5].props.children).toEqual('Fair Skies')
+			expect(alarm.props.children[0].props.children[6].props.children).toEqual('Fair Skies')
 		})
 		it('should display an alarm\'s Location', function() {
 			var alarm = renderAlarm(tenThirtyAM, alarmWithWeather, undefined, jest.fn())

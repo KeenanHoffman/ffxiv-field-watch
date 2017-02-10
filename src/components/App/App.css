@@ -1,9 +1,42 @@
-#clock {
-  font-size: 4em;
-  top: 6rem;
-  left: 1rem;
-  position: fixed;
-  z-index: 1;
+@media (max-width: 50rem) {
+  #clock {
+    font-size: 3vw;
+  }
+}
+@media (min-width: 50rem) {
+  #clock {
+    font-size: 4.5vw;
+  }
+}
+@media (max-width: 40rem) {
+  .legend {
+    display: none;
+  }
+  #clock {
+    color: #F5F5F5;
+    font-size: 3.75rem;
+    bottom: 0;
+    background-color: rgba(33,33,33, 0.8);
+    text-align: center;
+    width: 100%;
+    position: fixed;
+    z-index: 1;
+  }
+  #alarms {
+    margin-top: 4.5rem;
+  }
+}
+@media (min-width: 40rem) {
+  #clock {
+    top: 6rem;
+    left: 1rem;
+    position: fixed;
+    z-index: 1;
+  }
+  #alarms {
+    margin-top: 11em;
+    margin-bottom: 5.8rem;
+  }
 }
 
 .legend {
@@ -16,6 +49,4 @@
   box-shadow: 0 -3px 6px rgba(0,0,0,0.16), 0 -3px 6px rgba(0,0,0,0.23);
 }
 
-#alarms {
-  margin-top: 11em;
-}
+
