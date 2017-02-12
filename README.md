@@ -18,12 +18,13 @@ FFXIV Field Watch is an alarm system for FFXIV. It makes it simple to set alarms
 * Edit an alarm
 * Disable an alarm
 * Disable all alarms
-* Sort alarms chronologically and by sounding
 * Mobile responsiveness
+* Logo and branding
 * Android app
   * Push notifications
 * IOS app
   * Push notifications
+* Sort alarms chronologically and by sounding
 * Searchable list of gatherables that can be added as alarms
 
 If there is something you would like to see, let me know in a Github issue with the tage "feature request"
