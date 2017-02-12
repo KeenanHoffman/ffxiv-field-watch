@@ -81,6 +81,25 @@
     padding: 1rem 1rem 0 1rem;
     border-bottom: 1px solid #BDBDBD;
   }
+  .alarm {
+    position: relative !important;
+  }
+  .delete {
+    position: absolute !important;
+    top: 1rem;
+    right: 0;
+    padding: 0 !important;
+    background-color: rgba(0, 0, 0, 0);
+    border-color: rgba(0, 0, 0, 0);
+    color: red;
+  }
+  .trash-can {
+    height: 2.5rem;
+  }
+  .delete:hover {
+    background-color: rgba(0, 0, 0, 0);
+    border-color: rgba(0, 0, 0, 0);
+  }
 }
 @media (min-width: 40rem) {
   .arrow {
@@ -109,5 +128,24 @@
   }
   .center {
     text-align: center;
+  }
+  .alarm {
+    position: relative !important;
+  }
+  .delete {
+    position: absolute !important;
+    bottom: -1rem;
+    right: 0;
+    padding: 0 !important;
+    background-color: rgba(0, 0, 0, 0);
+    border-color: rgba(0, 0, 0, 0);
+    color: red;
+  }
+  .trash-can {
+    height: 3rem;
+  }
+  .delete:hover {
+    background-color: rgba(0, 0, 0, 0);
+    border-color: rgba(0, 0, 0, 0);
   }
 }

@@ -2,6 +2,7 @@ import React from 'react'
 import EorzeanClock from '../EorzeanClock/EorzeanClock'
 import Weatherfinder from '../../helpers/weather'
 import arrow from './arrow.png'
+import trashCan from './trashCan.png'
 
 function isSameWeatherPattern(alarm, epoch) {
 	if(alarm.currentWeather === '') {
@@ -80,7 +81,7 @@ var Alarm = React.createClass({
     var endClock = this.props.alarm.end === undefined ? <p></p> : <EorzeanClock time={this.props.alarm.end} />
     var dash = this.props.alarm.start === undefined ? '' : '-'
 		return (
-      <div className={className}>
+      <div className={className + " alarm"}>
         <div className="row center">
           <p className="column alarm-item title">{this.props.alarm.title}</p>
           <p className="column column-10 alarm-item travel-time">{this.props.alarm.travelTime + 'min'}</p>
@@ -95,7 +96,7 @@ var Alarm = React.createClass({
           <p className="column column-10 alarm-item current-weather">{this.props.alarm.currentWeather}</p>
           <img className="arrow" src={arrow} />
           <p className="column column-10 alarm-item previous-weather">{this.props.alarm.previousWeather}</p>
-          <button ref="delete" onClick={this.deleteAlarm}>Delete</button>
+          <button className="delete" ref="delete" onClick={this.deleteAlarm}><img className="trash-can" src={trashCan} /></button>
         </div>
         <p className="row notes">{notes}</p>
       </div>
