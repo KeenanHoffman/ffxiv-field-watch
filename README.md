@@ -33,7 +33,7 @@ If there is something you would like to see, let me know in a Github issue with 
 
 ## Issues and Bugs
 
-FFXIV Field Watch is in active development and may have issues/bugs at the moment. Please help to continue to improve this app by submitting them as github issues.
+FFXIV Field Watch is in active development and may have issues/bugs. Please help to continue to improve the app by submitting them as github issues.
 
 ## Donate
 
@@ -42,3 +42,9 @@ FFXIV Field Watch is dedicated to being **100% AD-FREE**, and I consider it my g
 ## Contribute
 
 All pull requests must containing passing tests. PRs that do not have testing will not be accepted.
+
+## Shout Outs
+
+Special Thanks to:
+* Clorifex(creator of [Garland Tools](http://www.garlandtools.org)) for his suggestion [here](https://www.reddit.com/r/ffxiv/comments/2pbl8p/eorzea_time_formula).
+* [Super-Ardvark](https://github.com/super-aardvark) for his Javascript implementation of weather prediction [here](https://github.com/super-aardvark/super-aardvark.github.io/blob/master/weather/weather.js)

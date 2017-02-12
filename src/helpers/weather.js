@@ -1,10 +1,13 @@
 module.exports = {
 
+//Special thanks to https://github.com/super-aardvark for his
+//for his implementation of weather prediction here:
+//https://github.com/super-aardvark/super-aardvark.github.io/blob/master/weather/weather.js
 getWeather(timeMillis, zone) {
 		return this.weatherChances[zone](this.calculateForecastTarget(timeMillis));
 },
 
-calculateForecastTarget: function(timeMillis) { 
+calculateForecastTarget: function(timeMillis) {
     // Thanks to Rogueadyn's SaintCoinach library for this calculation.
     // lDate is the current local time.
 
