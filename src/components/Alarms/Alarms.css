@@ -1,4 +1,4 @@
-@media (max-width: 40rem) {
+@media (max-width: 20rem) {
   .arrow {
     order: 6;
     flex-shrink: 0;
@@ -15,23 +15,24 @@
   .title {
     order:1;
     flex-shrink: 0;
-    flex-basis: 60% !important;
-    max-width: 100% !important;
-    font-size: 3rem;
+    flex-basis: 50% !important;
+    max-width: 50% !important;
+    font-size: 2.2rem !important;
     text-align: center;
   }
   .travel-time {
     order: 3;
     flex-shrink: 0;
-    flex-basis: 15% !important;
+    flex-basis: 40% !important;
     max-width: 100% !important;
     font-size: 1.4rem;
-    margin-top: 3px;
+    margin-top: -2.4rem !important;
     margin-bottom: 0;
   }
   .time {
     order: 4;
     flex-shrink: 0;
+    margin-left: -12% !important;
     flex-basis: 35% !important;
     text-align: left !important;
     max-width: 100% !important;
@@ -42,8 +43,9 @@
   .area {
     order: 2;
     flex-shrink: 0;
-    flex-basis: 40% !important;
-    text-align: center;
+    flex-basis: 50% !important;
+    text-align: center !important;
+    font-size: 1.5rem;
     font-weight: 600;
     display: flex;
     max-width: 100% !important;
@@ -51,7 +53,7 @@
   .current-weather {
     order: 7;
     flex-shrink: 0;
-    flex-basis: 23% !important;
+    flex-basis: 21% !important;
     text-align: center;
     max-width: 100% !important;
     width: 20% !important;
@@ -62,7 +64,7 @@
   .previous-weather {
     order: 5;
     flex-shrink: 0;
-    flex-basis: 23% !important;
+    flex-basis: 21% !important;
     text-align: center;
     max-width: 100% !important;
     width: 20% !important;
@@ -99,6 +101,116 @@
   .delete:hover {
     background-color: rgba(0, 0, 0, 0);
     border-color: rgba(0, 0, 0, 0);
+  }
+}
+@media (max-width: 40rem) {
+  .arrow {
+    order: 6;
+    flex-shrink: 0;
+    flex-basis: 4% !important;
+    margin-top: .8rem;
+    height: 3vw;
+    margin-bottom: 0;
+  }
+  .center {
+    text-align: center;
+    display: flex !important;
+    flex-flow: row wrap;
+  }
+  .title {
+    order:1;
+    flex-shrink: 0;
+    flex-basis: 50% !important;
+    max-width: 100% !important;
+    font-size: 2.5rem;
+    text-align: center;
+  }
+  .travel-time {
+    order: 3;
+    flex-shrink: 0;
+    flex-basis: 15% !important;
+    max-width: 100% !important;
+    font-size: 1.4rem;
+    margin-top: 3px;
+    margin-bottom: 0;
+  }
+  .time {
+    order: 4;
+    flex-shrink: 0;
+    flex-basis: 35% !important;
+    text-align: left !important;
+    max-width: 100% !important;
+    text-align: center;
+    font-weight: 600;
+    margin-bottom: 0;
+  }
+  .area {
+    order: 2;
+    flex-shrink: 0;
+    flex-basis: 50% !important;
+    text-align: center;
+    font-weight: 600;
+    display: flex;
+    max-width: 100% !important;
+  }
+  .current-weather {
+    order: 7;
+    flex-shrink: 0;
+    flex-basis: 21% !important;
+    text-align: center;
+    max-width: 100% !important;
+    width: 20% !important;
+    font-size: 1.4rem;
+    margin-top: 3px;
+    margin-bottom: 0;
+  }
+  .previous-weather {
+    order: 5;
+    flex-shrink: 0;
+    flex-basis: 21% !important;
+    text-align: center;
+    max-width: 100% !important;
+    width: 20% !important;
+    font-size: 1.4rem;
+    margin-top: 3px;
+    margin-bottom: 0;
+  }
+  .sounding {
+    background-color: #4CAF50;
+    color: #F5F5F5;
+    padding: 1rem 1rem 0 1rem;
+    border-bottom: 1px solid #FAFAFA;
+  }
+  .silent {
+    background-color: #F5F5F5;
+    padding: 1rem 1rem 0 1rem;
+    border-bottom: 1px solid #BDBDBD;
+  }
+  .alarm {
+    position: relative !important;
+  }
+  .delete {
+    position: absolute !important;
+    top: 1rem;
+    right: 0;
+    padding: 0 !important;
+    background-color: rgba(0, 0, 0, 0);
+    border-color: rgba(0, 0, 0, 0);
+    color: red;
+  }
+  .trash-can {
+    height: 2.5rem;
+  }
+  .delete:hover {
+    background-color: rgba(0, 0, 0, 0);
+    border-color: rgba(0, 0, 0, 0);
+  }
+}
+@media (max-width: 55rem) {
+  .alarm-item {
+    font-size: 1.5rem !important;
+    font-weight: 600;
+    overflow: hidden;
   }
 }
 @media (min-width: 40rem) {

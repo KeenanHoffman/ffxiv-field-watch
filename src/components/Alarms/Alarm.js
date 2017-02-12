@@ -80,6 +80,8 @@ var Alarm = React.createClass({
     var startClock = this.props.alarm.start === undefined ? <p></p> : <EorzeanClock time={this.props.alarm.start} />
     var endClock = this.props.alarm.end === undefined ? <p></p> : <EorzeanClock time={this.props.alarm.end} />
     var dash = this.props.alarm.start === undefined ? '' : '-'
+    var previousWeather = this.props.alarm.previousWeather === 'Thunderstorms' ? 'Thunder Storms' : this.props.alarm.previousWeather
+    var currentWeather = this.props.alarm.currentWeather === 'Thunderstorms' ? 'Thunder Storms' : this.props.alarm.currentWeather
 		return (
       <div className={className + " alarm"}>
         <div className="row center">
@@ -93,9 +95,9 @@ var Alarm = React.createClass({
             </span>
           </div>
           <p className="column column-20 alarm-item area">{this.props.alarm.location}</p>
-          <p className="column column-10 alarm-item current-weather">{this.props.alarm.currentWeather}</p>
+          <p className="column column-10 alarm-item current-weather">{currentWeather}</p>
           <img className="arrow" src={arrow} />
-          <p className="column column-10 alarm-item previous-weather">{this.props.alarm.previousWeather}</p>
+          <p className="column column-10 alarm-item previous-weather">{previousWeather}</p>
           <button className="delete" ref="delete" onClick={this.deleteAlarm}><img className="trash-can" src={trashCan} /></button>
         </div>
         <p className="row notes">{notes}</p>
