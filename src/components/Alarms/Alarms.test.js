@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import TestUtils from "react-addons-test-utils";
+import ReactTestUtils from 'react-addons-test-utils'
 import shallowTestUtils from "react-shallow-testutils";
 import Alarm from './Alarm'
 import Alarms from './Alarms'
@@ -149,9 +150,9 @@ describe('Alarm', function() {
 
 
 	describe('sounding', function() {
-		function renderAlarmIntoDocument(time, alarm, playAlarm, epoch) {
+		function renderAlarmIntoDocument(time, alarm, playAlarm, epoch, deleteAlarm) {
 			return TestUtils.renderIntoDocument(
-				<Alarm time={time} alarm={alarm} playAlarm={playAlarm} epoch={epoch} />
+				<Alarm time={time} alarm={alarm} playAlarm={playAlarm} epoch={epoch} deleteAlarm={deleteAlarm}/>
 			)
 		}
 		it('should play a sound when an alarm starts', function() {
@@ -486,6 +487,18 @@ describe('Alarm', function() {
 			expect(alarm.sounding).toEqual(false)
 		})
 	})
+  describe('Delete', function() {
+    it('should call the delete function with an alarms index', function() {
+      var deleteAlarm = jest.fn()
+      var alarm = TestUtils.renderIntoDocument(
+        <Alarm index={3} time={{hour: 10, minute: 46}} alarm={newAlarm} playAlarm={jest.fn()} epoch={1486263049078} deleteAlarm={deleteAlarm}/>
+      )
+
+      ReactTestUtils.Simulate.click(alarm.refs.delete)
+
+			expect(deleteAlarm).toBeCalledWith(3)
+    })
+  })
 })
 
 describe('Alarms', function() {
@@ -535,7 +548,7 @@ describe('Alarms', function() {
     var alarm = renderer.getRenderOutput();
 		expect(alarm.props.children[0].props.time.hour).toEqual(10)
 	})
-	it('should pass time to Alarm', function() {
+	it('should pass epoch to Alarm', function() {
 		var renderer = TestUtils.createRenderer();
     renderer.render(
 			<Alarms time={{hour: 10, minute: 30}} epoch={10} alarms={alarms}/>
@@ -552,5 +565,24 @@ describe('Alarms', function() {
 
     var alarm = renderer.getRenderOutput();
 		expect(alarm.props.children[0].props.playAlarm).not.toEqual(undefined)
+	})
+	it('should pass deleteAlarm function to Alarm', function() {
+		var renderer = TestUtils.createRenderer();
+    var deleteAlarm = jest.fn()
+    renderer.render(
+			<Alarms time={{hour: 10, minute: 30}} alarms={alarms} deleteAlarm={deleteAlarm} />
+    )
+
+    var alarm = renderer.getRenderOutput();
+		expect(alarm.props.children[0].props.deleteAlarm).toEqual(deleteAlarm)
+	})
+	it('should pass an alarm\'s index to an alarm', function() {
+		var renderer = TestUtils.createRenderer();
+    renderer.render(
+			<Alarms time={{hour: 10, minute: 30}} alarms={alarms} deleteAlarm={jest.fn()} />
+    )
+
+    var alarm = renderer.getRenderOutput();
+		expect(alarm.props.children[1].props.index).toEqual(1)
 	})
 })

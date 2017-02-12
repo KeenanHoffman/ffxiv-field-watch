@@ -96,6 +96,48 @@ describe('App', function() {
 		ReactTestUtils.Simulate.submit(createAlarm.refs.title)
 		expect(app.state.alarms[0].title).toEqual('newAlarm')
 	})
+	it('should delete an alarm', function() {
+    var anotherMockDatastore = {
+      getItem: function() {
+        return JSON.stringify([newAlarm])
+      },
+        setItem: function(x, alarms) {
+          storedAlarms = JSON.parse(alarms)
+        }
+    }
+		var app = TestUtils.renderIntoDocument(<App datastore={anotherMockDatastore} />)
+    app.refs.alarms.props.deleteAlarm(0)
+		expect(app.state.alarms.length).toEqual(0)
+	})
+	it('should call setState with the updated alarms afer deleting an alarm', function() {
+    var anotherMockDatastore = {
+      getItem: function() {
+        return JSON.stringify([newAlarm])
+      },
+        setItem: function(x, alarms) {
+          storedAlarms = JSON.parse(alarms)
+        }
+    }
+		var app = TestUtils.renderIntoDocument(<App datastore={anotherMockDatastore} />)
+    app.testableSetState = jest.fn()
+    app.refs.alarms.props.deleteAlarm(0)
+    expect(app.testableSetState).toBeCalledWith({
+      alarms: app.state.alarms
+    })
+	})
+	it('should should update the dataStore with the alarms after deletion', function() {
+    var anotherMockDatastore = {
+      getItem: function() {
+        return JSON.stringify([newAlarm])
+      },
+        setItem: function(x, alarms) {
+          storedAlarms = JSON.parse(alarms)
+        }
+    }
+		var app = TestUtils.renderIntoDocument(<App datastore={anotherMockDatastore} />)
+    app.refs.alarms.props.deleteAlarm(0)
+		expect(storedAlarms.length).toEqual(0)
+	})
 	it('should save a created alarm', function() {
 		var app = TestUtils.renderIntoDocument(<App datastore={mockDatastore} />)
 		var createAlarm = app.refs.createAlarm
@@ -104,6 +146,18 @@ describe('App', function() {
 		createAlarm.refs.end.value = '20:10'
 		ReactTestUtils.Simulate.submit(createAlarm.refs.title)
 		expect(storedAlarms[0].title).toEqual('newAlarm')
+	})
+	it('should call setState with the updated alarms afer creating an alarm', function() {
+		var app = TestUtils.renderIntoDocument(<App datastore={mockDatastore} />)
+    app.testableSetState = jest.fn()
+		var createAlarm = app.refs.createAlarm
+		createAlarm.refs.title.value = 'newAlarm'
+		createAlarm.refs.start.value = '10:10'
+		createAlarm.refs.end.value = '20:10'
+		ReactTestUtils.Simulate.submit(createAlarm.refs.title)
+    expect(app.testableSetState).toBeCalledWith({
+      alarms: app.state.alarms
+    })
 	})
 	it('should load saved alarms', function() {
 		var app = TestUtils.renderIntoDocument(<App datastore={mockDatastore} />)

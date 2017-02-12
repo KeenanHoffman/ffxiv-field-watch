@@ -7,8 +7,9 @@ var Alarms = React.createClass({
 	render: function() {
 		var epoch = this.props.epoch
 		var time = this.props.time
+    var deleteAlarm = this.props .deleteAlarm
 		var alarms = this.props.alarms.map(function(alarm, key) {
-			return <Alarm time={time} alarm={alarm} epoch={epoch} key={key} playAlarm={function() {
+			return <Alarm time={time} alarm={alarm} epoch={epoch} key={key} index={key} deleteAlarm={deleteAlarm} playAlarm={function() {
 					new Audio(sound).play()
 				}} />
 		})

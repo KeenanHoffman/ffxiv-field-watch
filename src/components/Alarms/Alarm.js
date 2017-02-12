@@ -61,6 +61,9 @@ var Alarm = React.createClass({
     }
     return weatherCheck && timeCheck
 	},
+  deleteAlarm: function() {
+    this.props.deleteAlarm(this.props.index)
+  },
   shouldPlayAlarm: true,
 	render: function() {
 		this.sounding = this.isAlarmSounding()
@@ -92,6 +95,7 @@ var Alarm = React.createClass({
           <p className="column column-10 alarm-item current-weather">{this.props.alarm.currentWeather}</p>
           <img className="arrow" src={arrow} />
           <p className="column column-10 alarm-item previous-weather">{this.props.alarm.previousWeather}</p>
+          <button ref="delete" onClick={this.deleteAlarm}>Delete</button>
         </div>
         <p className="row notes">{notes}</p>
       </div>
