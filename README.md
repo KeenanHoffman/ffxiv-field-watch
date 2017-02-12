@@ -13,13 +13,13 @@ FFXIV Field Watch is an alarm system for FFXIV. It makes it simple to set alarms
 * Add travel time to an alarm
 * Add notes to an alarm that show while the alarm is sounding
 * Saving alarms
+* Mobile responsiveness(added 2/12/17)
 
 ## Upcoming Features
 
 * Edit an alarm
 * Disable an alarm
 * Disable all alarms
-* Mobile responsiveness
 * Logo and branding
 * Android app
   * Push notifications
