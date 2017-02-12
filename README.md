@@ -6,15 +6,28 @@ FFXIV Field Watch is an alarm system for FFXIV. It makes it simple to set alarms
 
 ## Features
 
-Describe features
- 
+* Create alarms based on time
+* Create alarms based on weather patterns
+* Add travel time to an alarm
+* Add notes to an alarm that show while the alarm is sounding
+* Saving alarms
+
 ![showcase](https://github.com/KeenanHoffman/ffxiv-alarms/blob/master/screenshot.png "Showcase")
 
 ## Upcoming Features
 
-Describe upcoming features
+* Mobile Responsiveness
+* Android App
+  * Push Notifications
+* IOS App
+  * Push Notifications
+* Searchable list of gatherables that can be added as alarms
 
 If there is something you would like to see, let me know in a Github issue with the tage "feature request"
+
+## Issues and Bugs
+
+FFXIV Field Watch is in active development and may have issues/bugs at the moment. Please help to continue to improve this app by submitting them as github issues.
 
 ## Donate
 
