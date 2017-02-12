@@ -1,4 +1,5 @@
 # FFXIV Field Watch
+https://ffxiv-field-watch.firebaseapp.com/
 
 ### Alarms for FFXIV Weather and Time
 
@@ -48,3 +49,5 @@ All pull requests must containing passing tests. PRs that do not have testing wi
 Special Thanks to:
 * Clorifex(creator of [Garland Tools](http://www.garlandtools.org)) for his suggestion [here](https://www.reddit.com/r/ffxiv/comments/2pbl8p/eorzea_time_formula).
 * [Super-Ardvark](https://github.com/super-aardvark) for his Javascript implementation of weather prediction [here](https://github.com/super-aardvark/super-aardvark.github.io/blob/master/weather/weather.js)
+
+https://ffxiv-field-watch.firebaseapp.com/
