@@ -7,6 +7,8 @@ FFXIV Field Watch is an alarm system for FFXIV. It makes it simple to set alarms
 ## Features
 
 Describe features
+ 
+![showcase](https://github.com/KeenanHoffman/ffxiv-alarms/blob/master/screenshot.png "Showcase")
 
 ## Upcoming Features
 
