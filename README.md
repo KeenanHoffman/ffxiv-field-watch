@@ -37,9 +37,9 @@ If there is something you would like to see, let me know in a Github issue with 
 
 FFXIV Field Watch is in active development and may have issues/bugs. Please help to continue to improve the app by submitting them as github issues.
 
-## Donate
+## Support FFXIV Field Watch
 
-FFXIV Field Watch is dedicated to being **100% AD-FREE**, and I consider it my gift to the amazing FFXIV community. With that said, it will rely on donations in order to pay for maintenance(domain name, hosting, ect). Thank you for your support.
+FFXIV Field Watch is dedicated to being **100% AD-FREE**, and I consider it my gift to the amazing FFXIV community. With that said, it will rely on community support in order to pay for maintenance. Thank you for your support.
 
 ## Contribute
 
