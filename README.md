@@ -1,6 +1,8 @@
 # FFXIV Field Watch
 https://ffxiv-field-watch.firebaseapp.com/
 
+![showcase](https://github.com/KeenanHoffman/ffxiv-alarms/blob/master/pictues/color-icon.png "Showcase")
+
 ### Alarms for FFXIV Weather and Time
 
 FFXIV Field Watch is an alarm system for FFXIV. It makes it simple to set alarms based on the weather and time in Eorza. It is the perfect companion for fishers, botanists, and miner.
@@ -31,7 +33,7 @@ FFXIV Field Watch is an alarm system for FFXIV. It makes it simple to set alarms
 
 If there is something you would like to see, let me know in a Github issue with the tage "feature request"
 
-![showcase](https://github.com/KeenanHoffman/ffxiv-alarms/blob/master/screenshot.png "Showcase")
+![showcase](https://github.com/KeenanHoffman/ffxiv-alarms/blob/master/pictues/screenshot.png "Showcase")
 
 ## Issues and Bugs
 
