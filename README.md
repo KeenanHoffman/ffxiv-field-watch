@@ -21,6 +21,7 @@ FFXIV Field Watch is an alarm system for FFXIV. It makes it simple to set alarms
 * Disable an alarm
 * Disable all alarms
 * Logo and branding
+* Duplicate an alarm
 * Android app
   * Push notifications
 * IOS app
