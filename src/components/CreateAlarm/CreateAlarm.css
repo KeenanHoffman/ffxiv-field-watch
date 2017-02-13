@@ -12,7 +12,7 @@ input[type="submit"] {
 }
 
 input[type="time"]::-webkit-clear-button {
-  display: none;
+  padding: .7rem;
 }
 
 input[type="time"] {
@@ -97,6 +97,7 @@ label {
   textarea {
     height: 4rem !important;
     font-size: 2rem;
+    min-height: 3rem;
   }
   input[type="submit"] {
     padding-top: 0 !important;

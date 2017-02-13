@@ -24,6 +24,14 @@ var CreateAlarm = React.createClass({
 			previousWeather: this.refs.previousWeather.value === '---' ? '' : this.refs.previousWeather.value,
       travelTime: Number(this.refs.travelTime.value)
 		})
+    this.refs.title.value = ''
+    this.refs.start.value = ''
+    this.refs.end.value = ''
+    this.refs.travelTime.value = ''
+    this.refs.location.value = '---'
+    this.refs.currentWeather.value = '---'
+    this.refs.previousWeather.value = '---'
+    this.refs.notes.value = ''
 	},
 
 	updateWeatherList: function() {
@@ -82,7 +90,7 @@ var CreateAlarm = React.createClass({
             <div>
               <label htmlFor="currentWeather">Current Weather</label>
               <span className="form-item">
-                <select name="currentWeather" ref="currentWeather">
+                <select name="currentWeather" className="current-weather" ref="currentWeather">
                   <option>---</option>
                   {weathers}
                 </select>

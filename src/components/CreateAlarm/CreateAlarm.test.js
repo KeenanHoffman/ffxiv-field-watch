@@ -362,5 +362,33 @@ describe('CreateAlarm', function() {
     expect(createAlarm.refs.alarmForm.className).toMatch(/hide/)
     expect(createAlarm.refs.hide.className).toMatch(/hide/)
 	})
+	it('should clear all fields after an alarm is submitted', function() {
+		var alarms = []
+		function mockAddAlarm(alarm) {
+			alarms.push(alarm)
+		}
+		var createAlarm = TestUtils.renderIntoDocument(<CreateAlarm addAlarm={mockAddAlarm}/>)
+		createAlarm.refs.title.value = 'newAlarm'
+		createAlarm.refs.start.value = '10:10'
+		var form = TestUtils.findRenderedDOMComponentWithTag(createAlarm, 'form')
+		var location = TestUtils.findRenderedDOMComponentWithClass(createAlarm, 'location')
+		createAlarm.refs.location.value = 'Limsa Lominsa'
+		ReactTestUtils.Simulate.change(location)
+		createAlarm.refs.end.value = '20:10'
+    createAlarm.refs.travelTime.value = 15
+		createAlarm.refs.currentWeather.value = 'Clouds'
+		createAlarm.refs.previousWeather.value = 'Fog'
+		createAlarm.refs.notes.value = 'notes'
+		ReactTestUtils.Simulate.submit(createAlarm.refs.submit)
+
+    expect(createAlarm.refs.title.value).toEqual('')
+    expect(createAlarm.refs.start.value).toEqual('')
+    expect(createAlarm.refs.end.value).toEqual('')
+    expect(createAlarm.refs.travelTime.value).toEqual('')
+    expect(createAlarm.refs.location.value).toEqual('---')
+    expect(createAlarm.refs.currentWeather.value).toEqual('---')
+    expect(createAlarm.refs.previousWeather.value).toEqual('---')
+    expect(createAlarm.refs.notes.value).toEqual('')
+	})
 })
 
