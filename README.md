@@ -45,7 +45,7 @@ FFXIV Field Watch is dedicated to being **100% AD-FREE**, and I consider it my g
 
 All pull requests must containing passing tests. PRs that do not have testing will not be accepted.
 
-[![Donate](https://www.paypalobjects.com/en_US/i/scr/pixel.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=keenan%2em%2ehoffman%40gmail%2ecom&lc=US&item_name=FFXIV%20Field%20Watch&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donate_LG%2egif%3aNonHosted)
+[![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=keenan%2em%2ehoffman%40gmail%2ecom&lc=US&item_name=FFXIV%20Field%20Watch&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donate_LG%2egif%3aNonHosted)
 
 ## Shout Outs
 
