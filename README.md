@@ -1,7 +1,7 @@
 # FFXIV Field Watch
 https://ffxiv-field-watch.firebaseapp.com/
 
-![showcase](https://github.com/KeenanHoffman/ffxiv-alarms/blob/master/pictues/color-icon.png "Showcase")
+![FFXIV Field Watch Icon](https://raw.githubusercontent.com/KeenanHoffman/ffxiv-field-watch/master/pictures/color-icon.png "FFXIV Field Watch")
 
 ### Alarms for FFXIV Weather and Time
 
