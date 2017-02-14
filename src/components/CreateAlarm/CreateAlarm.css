@@ -66,12 +66,21 @@ label {
 @media (max-width: 20rem) {
   input, select {
     height: 2.5rem !important;
-    font-size: 2rem;
     margin-bottom: 1rem;
   }
+  input {
+    font-size: 1.5rem !important;
+  }
+  select {
+    font-size: 1.3rem !important;
+  }
   textarea {
-    height: 1.5rem !important;
-    font-size: 2rem;
+    height: 4rem !important;
+    font-size: 1.4rem;
+    min-height: 3rem;
+  }
+  textarea {
+    font-size: 1.5rem !important;
     min-height: 3rem;
   }
   input[type="submit"] {
@@ -91,12 +100,12 @@ label {
 
 @media (max-width: 40rem) {
   input, select {
-    height: 3.5rem !important;
+    height: 3.5rem;
     font-size: 2rem;
     margin-bottom: 1rem;
   }
   textarea {
-    height: 4rem !important;
+    height: 6rem;
     font-size: 2rem;
     min-height: 3rem;
   }

@@ -26,18 +26,18 @@
     flex-basis: 40% !important;
     max-width: 100% !important;
     font-size: 1.4rem;
-    margin-top: -2.4rem !important;
+    font-size: 1.2rem !important;
     margin-bottom: 0;
   }
   .time {
     order: 4;
     flex-shrink: 0;
-    margin-left: -12% !important;
     flex-basis: 35% !important;
     text-align: left !important;
     max-width: 100% !important;
     text-align: center;
-    font-weight: 600;
+    font-size: 1.2rem !important;
+    margin-top: .3rem;
     margin-bottom: 0;
   }
   .area {
@@ -59,6 +59,7 @@
     width: 20% !important;
     font-size: 1.4rem;
     margin-top: 3px;
+    font-size: 1.2rem !important;
     margin-bottom: 0;
   }
   .previous-weather {
@@ -68,7 +69,7 @@
     text-align: center;
     max-width: 100% !important;
     width: 20% !important;
-    font-size: 1.4rem;
+    font-size: 1.2rem !important;
     margin-top: 3px;
     margin-bottom: 0;
   }
@@ -87,16 +88,11 @@
     position: relative !important;
   }
   .delete {
-    position: absolute !important;
-    top: 1rem;
-    right: 0;
-    padding: 0 !important;
-    background-color: rgba(0, 0, 0, 0);
-    border-color: rgba(0, 0, 0, 0);
-    color: red;
+    bottom: -2rem !important;
+    right: .5rem !important;
   }
   .trash-can {
-    height: 2.5rem;
+    height: 2rem !important;
   }
   .delete:hover {
     background-color: rgba(0, 0, 0, 0);
@@ -108,8 +104,8 @@
     order: 6;
     flex-shrink: 0;
     flex-basis: 4% !important;
-    margin-top: .8rem;
     height: 3vw;
+    margin-top: -.3rem !important;
     margin-bottom: 0;
   }
   .center {
@@ -122,8 +118,9 @@
     flex-shrink: 0;
     flex-basis: 50% !important;
     max-width: 100% !important;
-    font-size: 2.5rem;
+    font-size: 2rem !important;
     text-align: center;
+    margin-bottom: 0;
   }
   .travel-time {
     order: 3;
@@ -142,6 +139,7 @@
     max-width: 100% !important;
     text-align: center;
     font-weight: 600;
+    margin-top: .3rem;
     margin-bottom: 0;
   }
   .area {
@@ -152,6 +150,7 @@
     font-weight: 600;
     display: flex;
     max-width: 100% !important;
+    margin-bottom: 0;
   }
   .current-weather {
     order: 7;
@@ -161,7 +160,7 @@
     max-width: 100% !important;
     width: 20% !important;
     font-size: 1.4rem;
-    margin-top: 3px;
+    margin-top: -.7rem;
     margin-bottom: 0;
   }
   .previous-weather {
@@ -172,7 +171,7 @@
     max-width: 100% !important;
     width: 20% !important;
     font-size: 1.4rem;
-    margin-top: 3px;
+    margin-top: -.7rem;
     margin-bottom: 0;
   }
   .sounding {
@@ -191,8 +190,8 @@
   }
   .delete {
     position: absolute !important;
-    top: 1rem;
-    right: 0;
+    bottom: -2rem;
+    right: .5rem;
     padding: 0 !important;
     background-color: rgba(0, 0, 0, 0);
     border-color: rgba(0, 0, 0, 0);
@@ -208,7 +207,7 @@
 }
 @media (max-width: 55rem) {
   .alarm-item {
-    font-size: 1.5rem !important;
+    font-size: 1.5rem;
     font-weight: 600;
     overflow: hidden;
   }
