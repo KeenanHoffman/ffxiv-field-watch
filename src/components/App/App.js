@@ -4,6 +4,7 @@ import EorzeanClock from '../EorzeanClock/EorzeanClock'
 import Alarms from '../Alarms/Alarms'
 import CreateAlarm from '../CreateAlarm/CreateAlarm'
 import helpers from '../../helpers/helpers'
+import logo from './color-icon.png'
 
 var App = React.createClass({
 	getInitialState: function() {
@@ -51,6 +52,8 @@ var App = React.createClass({
           <p className="column column-10 alarm-item">Current Weather</p>
           <p className="column column-10 alarm-item">Previous Weather</p>
         </div>
+        <img className="logo" src={logo} />
+        <p className="header">FFXIV Field Watch</p>
 			</div>
 		)
   }
