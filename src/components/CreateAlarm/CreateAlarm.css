@@ -40,10 +40,10 @@ form {
 }
 
 label {
-    display: table-cell !important;
-    width: 1px !important;
-    white-space: nowrap !important;
-    margin-right: 1.5rem;
+  display: table-cell !important;
+  width: 1px !important;
+  white-space: nowrap !important;
+  margin-right: 1.5rem;
 }
 
 .form-item {
@@ -61,18 +61,24 @@ label {
   box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
   width: 100%;
   padding: 1rem 1rem 0 1rem;
-  padding-top: 6rem;
+  padding-top: 5rem;
 }
 @media (max-width: 20rem) {
   input, select {
     height: 2.5rem !important;
-    margin-bottom: 1rem;
+    margin-bottom: .7rem !important;
   }
   input {
     font-size: 1.5rem !important;
   }
+  label {
+    font-size: 1.4rem;
+  }
   select {
     font-size: 1.3rem !important;
+  }
+  input[type="time"] {
+    margin-bottom: .7rem !important;
   }
   textarea {
     height: 4rem !important;
@@ -81,11 +87,14 @@ label {
   }
   textarea {
     font-size: 1.5rem !important;
-    min-height: 3rem;
+    min-height: 2rem !important;
+    height: 3rem !important;
+    margin-bottom: .1rem !important;
   }
   input[type="submit"] {
-    padding-top: 0 !important;
-    min-height: 3.5rem;
+    font-size: 1rem !important;
+    min-height: 3.5rem !important;
+    height: 2rem;
   }
 }
 
@@ -100,13 +109,17 @@ label {
 
 @media (max-width: 40rem) {
   input, select {
-    height: 3.5rem;
-    font-size: 2rem;
+    height: 2.5rem !important;
+    font-size: 1.3rem;
     margin-bottom: 1rem;
   }
+  select[name="previousWeather"] {
+    margin-bottom: 0 !important;
+
+  }
   textarea {
-    height: 6rem;
-    font-size: 2rem;
+    height: 3.5rem;
+    font-size: 1.8rem;
     min-height: 3rem;
   }
   input[type="submit"] {

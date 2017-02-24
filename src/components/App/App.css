@@ -19,6 +19,9 @@
   }
 }
 @media (max-width: 40rem) {
+  .logo {
+    height: 4.8rem !important;
+  }
   .legend {
     display: none;
   }
@@ -39,7 +42,7 @@
   .header {
     position: fixed;
     top: 1rem;
-    left: 8rem;
+    left: 6rem;
     font-weight: 700;
     color: #424242;
     font-size: 3rem;
@@ -76,9 +79,6 @@
   box-shadow: 0 -3px 6px rgba(0,0,0,0.16), 0 -3px 6px rgba(0,0,0,0.23);
 }
 
-.logo {
-
-}
 
 .logo {
   position: fixed;
